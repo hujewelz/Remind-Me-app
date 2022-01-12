@@ -35,7 +35,7 @@ struct ContentView: View {
                 ForEach(store.todos, id: \.title) { section in
                     Section(header: Text(section.title.rawValue)
                                 .foregroundColor(Color.secondary)
-                                .font(.subheadline.bold())
+                                .font(.subheadline.weight(.bold))
                     ) {
                         ForEach(section.value) { todo in
                             TodoCell(todo: todo) {
@@ -74,7 +74,7 @@ struct ContentView: View {
                 }
             }
             .listStyle(PlainListStyle())
-            .searchable(text: $store.searchText)
+            
             .background(LinearGradient(colors: [Pallet.gradientStart, Pallet.gradientEnd],
                                        startPoint: UnitPoint(x: 0.5, y: 0),
                                        endPoint: UnitPoint(x: 0.5, y: 1))
@@ -93,6 +93,7 @@ struct ContentView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .searchable(text: $store.searchText)
         
     }
     

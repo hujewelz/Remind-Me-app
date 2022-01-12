@@ -14,7 +14,7 @@ struct TodoCell: View {
     var body: some View {
         HStack(alignment: .center, spacing: 8) {
             Image(systemName: todo.isCompleted ? "checkmark.diamond" : "diamond")
-                .font(.title2.weight(.semibold))
+                .font(.title2.weight(.medium))
                 .foregroundColor(textColor)
                 .onTapGesture {
                     self.onCheck?()
@@ -23,7 +23,7 @@ struct TodoCell: View {
                 Text(todo.title)
                     .strikethroughable(todo.isCompleted)
                     .lineLimit(2)
-                    .font(.body.weight(.medium))
+                    .font(.body)
                     .foregroundColor(textColor)
                 
                 if !todo.isCompleted && todo.dueDate != nil {
