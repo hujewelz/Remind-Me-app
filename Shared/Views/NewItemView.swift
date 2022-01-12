@@ -11,21 +11,31 @@ struct NewItemView: View {
     
     let onSubmit: ((String) -> Void)?
     @State private var text = ""
+    
     var body: some View {
-        HStack {
+        HStack(spacing: 0) {
+            Button {
+                
+            } label: {
+                Image(systemName: "calendar.badge.clock")
+                    .font(.title3.bold())
+            }
+            .padding()
+            .foregroundColor(Color.primary)
+
             TextField("Do what you want...", text: $text)
-                .font(.subheadline.bold())
-                .padding(.horizontal, 16)
+                .font(.body.bold())
+                .padding(.trailing, 16)
                 .padding(.vertical, 8)
-                .background(Color.white)
                 .onSubmit {
                     self.onSubmit?(text)
                     text = ""
                 }
         }
+        
         .frame(height: 44)
         .frame(maxWidth: .infinity)
-        .background(Color.white)
+        .background(Pallet.systemBackground)
             
     }
 }

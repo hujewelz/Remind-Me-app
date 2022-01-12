@@ -8,28 +8,32 @@
 import SwiftUI
 
 struct TodoCell: View {
-    @Environment(\.managedObjectContext) private var viewContext
     let todo: Todo
+    let onCheck: (() -> Void)?
     
     var body: some View {
         HStack(alignment: .center, spacing: 8) {
             Image(systemName: todo.isCompleted ? "checkmark.diamond" : "diamond")
+                .font(.title2)
                 .foregroundColor(textColor)
                 .onTapGesture {
-                    toggleCompleted()
+                    self.onCheck?()
                 }
             VStack(alignment: .leading, spacing: 4) {
                 Text(todo.title)
+                    .strikethroughable(todo.isCompleted)
                     .font(.body)
                     .foregroundColor(textColor)
-                if todo.isRemind {
+                
+                if !todo.isCompleted && todo.dueDate != nil {
                     HStack(spacing: 2) {
-                        Image(systemName: "clock")
-//                        Text(todo.dueDate!, style: .date)
-                        Text(todo.isRemind ? "reminded" : "no")
+                        Text(todo.dueDate!, style: .date)
+                        if todo.isRemind {
+                            Image(systemName: "bell")
+                        }
                     }
                     .font(.caption)
-                    .foregroundColor(.primary)
+                    .foregroundColor(Pallet.secondaryText)
                 }
             }
         }
@@ -39,14 +43,6 @@ struct TodoCell: View {
     
     var textColor: Color {
         todo.isCompleted ? Pallet.secondaryText : Pallet.primaryText
-    }
-    
-    private func toggleCompleted() {
-        withAnimation {
-//            todo.isCompleted.toggle()
-//            try? viewContext.save()
-        }
-        
     }
 }
 

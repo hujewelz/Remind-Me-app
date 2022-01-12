@@ -102,7 +102,7 @@ extension PersistenceController: TodoService {
     }
     
     private func todoMO(withId id: UUID) -> TodoMO? {
-        let predicate = NSPredicate(format: "uuid = %@", id as CVarArg)
+        let predicate = NSPredicate(format: "id = %@", id as CVarArg)
         let result = fetchFirst(TodoMO.self, predicate: predicate)
         if case .success(let mo) = result {
             return mo
@@ -132,6 +132,12 @@ extension PersistenceController: TodoService {
         mo?.startDate = todo.startDate
         mo?.dueDate = todo.dueDate
         mo?.content = todo.content
+        save()
+    }
+    
+    func delete(_ todo: Todo) {
+        guard let mo = todoMO(withId: todo.id) else { return }
+        container.viewContext.delete(mo)
         save()
     }
     

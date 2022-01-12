@@ -15,4 +15,6 @@ protocol TodoService {
     func fetchAll() -> [Todo]
     
     func fetchTo(withId id: UUID) -> Todo?
+    
+    func delete(_ todo: Todo)
 }
