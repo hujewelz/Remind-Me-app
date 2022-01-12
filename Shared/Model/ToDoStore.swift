@@ -14,6 +14,7 @@ final class ToDoStore: ObservableObject {
     let todoService: TodoService
     
     @Published var todos: [GroupedTodos] = []
+    @Published var searchResult: [GroupedTodos] = []
     @Published var selectedTodo: Todo?
     @Published var currenTodoTitle = ""
     @Published var searchText = "" {
@@ -48,7 +49,7 @@ final class ToDoStore: ObservableObject {
     func delete(_ todo: Todo) {
         let currentGroup: GroupTitle = todo.isCompleted ? .completed : .todo
         let grouped = remove(todo, in: currentGroup)
-        let indexOfGroup = todo.isCompleted ? 1 : 0
+        let indexOfGroup = indexOf(group: currentGroup)
         withAnimation {
             if grouped.value.isEmpty {
                 todos.remove(at: indexOfGroup)
@@ -114,11 +115,10 @@ final class ToDoStore: ObservableObject {
         }
     }
     
-    private var originalTodos: [GroupedTodos] = []
+   
     func searchTodo(title: String) {
         if title.isAbsoluteEmpty {
-            todos = originalTodos
-            print("end search: ", originalTodos.count)
+            
         } else {
             var tmp: [GroupedTodos] = []
             if let todoGroup = todos(from: .todo)?.filter({ $0.title.contains(title.absoluteText) }), !todoGroup.isEmpty {
@@ -127,8 +127,7 @@ final class ToDoStore: ObservableObject {
             if let completedGroup = todos(from: .todo)?.filter({ $0.title.contains(title.absoluteText) }), !completedGroup.isEmpty {
                 tmp.append((.completed, completedGroup))
             }
-            todos = tmp
-            print("searched: ", originalTodos.count)
+            searchResult = tmp
         }
     }
 }
@@ -175,7 +174,16 @@ extension ToDoStore {
               let index = todos.firstIndex(where: { $0.id == todo.id }) else { return }
         
         todos[index] = todo
-        let indexOfCurrentGroup = currentGroup == .todo ? 0 : 1
+        let indexOfCurrentGroup = indexOf(group: currentGroup)//currentGroup == .todo ? 0 : 1
         self.todos[indexOfCurrentGroup] = (currentGroup, todos)
+    }
+    
+    private func indexOf(group: GroupTitle) -> Int {
+        var index = group == .todo ? 0 : 1
+        let todoGroup = todos(from: .todo)
+        if todoGroup == nil, group == .completed {
+            index = 0
+        }
+        return index
     }
 }
