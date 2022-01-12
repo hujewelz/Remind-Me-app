@@ -18,13 +18,13 @@ struct NewTodoView: View {
     var body: some View {
 #if os(iOS)
         NavigationView {
-            content
+            Text("Add New")
         }
 #else
-        content
+        Text("Add New")
 #endif
     }
-    
+   /*
     var content: some View {
         List {
             Section {
@@ -90,7 +90,7 @@ struct NewTodoView: View {
     private func saveItem() {
         store.saveItem()
         presentationMode.wrappedValue.dismiss()
-    }
+    }*/
     
     let dateRange: ClosedRange<Date> = Date()...Date.distantFuture
 }

@@ -14,12 +14,14 @@ struct TodoCell: View {
     var body: some View {
         HStack(alignment: .center, spacing: 8) {
             Image(systemName: todo.isCompleted ? "checkmark.diamond" : "diamond")
+                .foregroundColor(textColor)
                 .onTapGesture {
                     toggleCompleted()
                 }
             VStack(alignment: .leading, spacing: 4) {
-                Text(todo.title!)
+                Text(todo.title)
                     .font(.body)
+                    .foregroundColor(textColor)
                 if todo.isRemind {
                     HStack(spacing: 2) {
                         Image(systemName: "clock")
@@ -31,14 +33,18 @@ struct TodoCell: View {
                 }
             }
         }
-        .tint(todo.isCompleted ? Color.gray : Color.primary)
+        .tint(textColor)
         .padding(.vertical, 8)
+    }
+    
+    var textColor: Color {
+        todo.isCompleted ? Pallet.secondaryText : Pallet.primaryText
     }
     
     private func toggleCompleted() {
         withAnimation {
-            todo.isCompleted.toggle()
-            try? viewContext.save()
+//            todo.isCompleted.toggle()
+//            try? viewContext.save()
         }
         
     }

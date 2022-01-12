@@ -14,7 +14,7 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         for _ in 0..<10 {
-            let newItem = Todo(context: viewContext)
+            let newItem = TodoMO(context: viewContext)
             newItem.timestamp = Date()
         }
         do {
@@ -66,5 +66,80 @@ struct PersistenceController {
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
+    }
+}
+
+extension PersistenceController {
+    private func fetchMOs<T: NSManagedObject>(_ objectType: T.Type, predicate: NSPredicate? = nil, limit: Int? = nil) -> Result<[T], Error> {
+        let request = objectType.fetchRequest()
+        request.predicate = predicate
+        if let limit = limit {
+            request.fetchLimit = limit
+        }
+        do {
+            let result = try container.viewContext.fetch(request)
+            return .success(result as? [T] ?? [])
+        } catch {
+            return .failure(error)
+        }
+    }
+    
+    private func fetchFirst<T: NSManagedObject>(_ objectType: T.Type, predicate: NSPredicate? = nil) -> Result<T?, Error> {
+        let result = fetchMOs(objectType, predicate: predicate, limit: 1)
+        switch result {
+        case .success(let todos):
+            return .success(todos.first)
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+}
+
+extension PersistenceController: TodoService {
+    func fetchTo(withId id: UUID) -> Todo? {
+        let mo = todoMO(withId: id)
+        return mo?.todo
+    }
+    
+    private func todoMO(withId id: UUID) -> TodoMO? {
+        let predicate = NSPredicate(format: "uuid = %@", id as CVarArg)
+        let result = fetchFirst(TodoMO.self, predicate: predicate)
+        if case .success(let mo) = result {
+            return mo
+        }
+        return nil
+    }
+    
+    
+    func create(_ todo: Todo) {
+        let todoMO = TodoMO(context: container.viewContext)
+        todoMO.id = todo.id
+        todoMO.title = todo.title
+        todoMO.isCompleted = todo.isCompleted
+        todoMO.isRemind = todo.isRemind
+        todoMO.timestamp = todo.timestamp
+        todoMO.startDate = todo.startDate
+        todoMO.dueDate = todo.dueDate
+        todoMO.content = todo.content
+        save()
+    }
+    
+    func update(_ todo: Todo) {
+        let mo = todoMO(withId: todo.id)
+        mo?.title = todo.title
+        mo?.isCompleted = todo.isCompleted
+        mo?.isRemind = todo.isRemind
+        mo?.startDate = todo.startDate
+        mo?.dueDate = todo.dueDate
+        mo?.content = todo.content
+        save()
+    }
+    
+    func fetchAll() -> [Todo] {
+        let result = fetchMOs(TodoMO.self)
+        if case .success(let mos) = result {
+            return mos.map(Todo.init(todoMO:))
+        }
+        return []
     }
 }

@@ -6,61 +6,53 @@
 //
 
 import SwiftUI
-import CoreData
 
 final class ToDoStore: ObservableObject {
-    @Published var title: String
-    @Published var content: String
-    @Published var duteData: Date
-    @Published var isComplete = false
-    @Published var isRemind = false
-    @Published var steps: [String] = []
     
-    @Published var bellRotation: Double
+    typealias GroupedTodos = (title: String, value: [Todo])
     
-    private var todo: Todo?
-    let context: NSManagedObjectContext
+    let todoService: TodoService
     
-    init(context: NSManagedObjectContext, todo: Todo?) {
-        self.context = context
-        self.todo = todo
-        title = todo?.title ?? ""
-        content = todo?.content ?? ""
-        duteData = todo?.dueDate ?? Date()
-        isRemind = todo?.isRemind ?? false
-        isComplete = todo?.isCompleted ?? false
-        bellRotation = (todo?.isRemind ?? false) ? 20 : 0
+    @Published var todos: [GroupedTodos] = []
+    
+    init(service: TodoService) {
+        todoService = service
+        fetchAll()
     }
     
-    func toggleRemind() {
-        bellRotation = isRemind ? 0 : 20
-        isRemind.toggle()
-    }
     
-    func saveItem() {
-        
-        let newItem = todo ?? Todo(context: context)
-        newItem.title = title
-        newItem.content = content
-        newItem.dueDate = duteData
-        newItem.isRemind = isRemind
-        newItem.isCompleted = isComplete
-        if todo == nil {
-            newItem.id = UUID()
-            newItem.timestamp = Date()
+}
+
+extension ToDoStore {
+
+    func create(_ todo: Todo) {
+        withAnimation {
+            if var todoGroup = todos.first(where: { $0.title == "Todo" }) {
+                todoGroup.value.insert(todo, at: 0)
+                todos[0] = todoGroup
+            } else {
+                self.todos.insert(("Todo", [todo]), at: 0)
+            }
         }
         
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
+        todoService.create(todo)
     }
     
-    func deleteItem() {
-        guard let todo = todo else {
-            return
+    func update(_ todo: Todo) {
+        todoService.update(todo)
+    }
+    
+    func fetchAll() {
+        let results = todoService.fetchAll()
+        let todos = results.filter { !$0.isCompleted }.sorted { $0.timestamp > $1.timestamp }
+        let completed = results.filter { $0.isCompleted }.sorted { $0.timestamp > $1.timestamp }
+        
+        if !todos.isEmpty {
+            self.todos.append(("Todo", todos))
         }
-        context.delete(todo)
+        
+        if !completed.isEmpty {
+            self.todos.append(("Completed", completed))
+        }
     }
 }

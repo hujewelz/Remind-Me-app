@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct NewItemView: View {
+    
+    let onSubmit: ((String) -> Void)?
     @State private var text = ""
     var body: some View {
         HStack {
@@ -17,7 +19,8 @@ struct NewItemView: View {
                 .padding(.vertical, 8)
                 .background(Color.white)
                 .onSubmit {
-                    print("submint: ", text)
+                    self.onSubmit?(text)
+                    text = ""
                 }
         }
         .frame(height: 44)
@@ -29,6 +32,8 @@ struct NewItemView: View {
 
 struct NewItemView_Previews: PreviewProvider {
     static var previews: some View {
-        NewItemView()
+        NewItemView { _ in
+            
+        }
     }
 }

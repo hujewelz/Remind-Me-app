@@ -14,11 +14,7 @@ struct TODOApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-        }
-        .onChange(of: scenePhase) { _ in
-            persistenceController.save()
+            ContentView(store: ToDoStore(service: persistenceController))
         }
     }
 }
