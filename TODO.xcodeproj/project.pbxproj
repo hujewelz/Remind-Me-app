@@ -28,6 +28,10 @@
 		C2AA6EEC278E6FD900933147 /* TodoMO+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AA6EEA278E6FD900933147 /* TodoMO+Extension.swift */; };
 		C2AA6EEF278EBBA700933147 /* StrikethroughTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AA6EEE278EBBA700933147 /* StrikethroughTextModifier.swift */; };
 		C2AA6EF0278EBBA700933147 /* StrikethroughTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AA6EEE278EBBA700933147 /* StrikethroughTextModifier.swift */; };
+		C2AA6EF2278EC5C000933147 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AA6EF1278EC5C000933147 /* Const.swift */; };
+		C2AA6EF3278EC5C000933147 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AA6EF1278EC5C000933147 /* Const.swift */; };
+		C2AA6EF5278ECA2300933147 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AA6EF4278ECA2300933147 /* Extensions.swift */; };
+		C2AA6EF6278ECA2300933147 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AA6EF4278ECA2300933147 /* Extensions.swift */; };
 		C2D24707278571AB00B7264F /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D24706278571AB00B7264F /* Tests_iOS.swift */; };
 		C2D24709278571AB00B7264F /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D24708278571AB00B7264F /* Tests_iOSLaunchTests.swift */; };
 		C2D24713278571AC00B7264F /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D24712278571AC00B7264F /* Tests_macOS.swift */; };
@@ -101,6 +105,8 @@
 		C2AA6EE7278E6EE200933147 /* TodoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoService.swift; sourceTree = "<group>"; };
 		C2AA6EEA278E6FD900933147 /* TodoMO+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoMO+Extension.swift"; sourceTree = "<group>"; };
 		C2AA6EEE278EBBA700933147 /* StrikethroughTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrikethroughTextModifier.swift; sourceTree = "<group>"; };
+		C2AA6EF1278EC5C000933147 /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
+		C2AA6EF4278ECA2300933147 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C2D246EC278571A900B7264F /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		C2D246ED278571A900B7264F /* TODOApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODOApp.swift; sourceTree = "<group>"; };
 		C2D246EE278571A900B7264F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -184,6 +190,8 @@
 			isa = PBXGroup;
 			children = (
 				C2AA6EE1278E68B700933147 /* Pallet.swift */,
+				C2AA6EF1278EC5C000933147 /* Const.swift */,
+				C2AA6EF4278ECA2300933147 /* Extensions.swift */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -493,9 +501,11 @@
 				C2D24716278571AC00B7264F /* TODO.xcdatamodeld in Sources */,
 				C2AA6EE2278E68B700933147 /* Pallet.swift in Sources */,
 				C2D2471C278571AC00B7264F /* Persistence.swift in Sources */,
+				C2AA6EF5278ECA2300933147 /* Extensions.swift in Sources */,
 				C2D24734278578FC00B7264F /* NewTodoView.swift in Sources */,
 				C2D24718278571AC00B7264F /* TODOApp.swift in Sources */,
 				C2D2471A278571AC00B7264F /* ContentView.swift in Sources */,
+				C2AA6EF2278EC5C000933147 /* Const.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,9 +523,11 @@
 				C2D2471D278571AC00B7264F /* Persistence.swift in Sources */,
 				C2AA6EE9278E6EE200933147 /* TodoService.swift in Sources */,
 				C2D24735278578FC00B7264F /* NewTodoView.swift in Sources */,
+				C2AA6EF6278ECA2300933147 /* Extensions.swift in Sources */,
 				C2D24719278571AC00B7264F /* TODOApp.swift in Sources */,
 				C2D2471B278571AC00B7264F /* ContentView.swift in Sources */,
 				C2AA6EE6278E6BDF00933147 /* Todo.swift in Sources */,
+				C2AA6EF3278EC5C000933147 /* Const.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

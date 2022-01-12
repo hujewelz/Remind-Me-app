@@ -14,7 +14,7 @@ struct TodoCell: View {
     var body: some View {
         HStack(alignment: .center, spacing: 8) {
             Image(systemName: todo.isCompleted ? "checkmark.diamond" : "diamond")
-                .font(.title2)
+                .font(.title2.weight(.semibold))
                 .foregroundColor(textColor)
                 .onTapGesture {
                     self.onCheck?()
@@ -22,7 +22,8 @@ struct TodoCell: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(todo.title)
                     .strikethroughable(todo.isCompleted)
-                    .font(.body)
+                    .lineLimit(2)
+                    .font(.body.weight(.medium))
                     .foregroundColor(textColor)
                 
                 if !todo.isCompleted && todo.dueDate != nil {
@@ -36,6 +37,8 @@ struct TodoCell: View {
                     .foregroundColor(Pallet.secondaryText)
                 }
             }
+            Spacer()
+            
         }
         .tint(textColor)
         .padding(.vertical, 8)
@@ -46,12 +49,6 @@ struct TodoCell: View {
     }
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 
 //struct TodoItem_Previews: PreviewProvider {

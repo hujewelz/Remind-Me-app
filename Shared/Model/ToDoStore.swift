@@ -14,6 +14,13 @@ final class ToDoStore: ObservableObject {
     let todoService: TodoService
     
     @Published var todos: [GroupedTodos] = []
+    @Published var selectedTodo: Todo?
+    @Published var currenTodoTitle = ""
+    @Published var searchText = "" {
+        didSet {
+            print("searched: ", searchText)
+        }
+    }
     
     init(service: TodoService) {
         todoService = service
@@ -25,6 +32,22 @@ final class ToDoStore: ObservableObject {
         case completed = "Completed"
     }
     
+    func addOrUpdateTodo(title: String) {
+        guard !title.isAbsoluteEmpty else { return }
+        if var selectedTodo = selectedTodo {
+            if selectedTodo.title != title.absoluteText {
+                selectedTodo.title = title.absoluteText
+                update(selectedTodo)
+            }
+            self.selectedTodo = nil
+        } else {
+            create(Todo(title: title.absoluteText))
+        }
+    }
+}
+
+
+extension ToDoStore {
     private func todos(from group: GroupTitle) -> [Todo]? {
         guard let result = todos.first(where: { $0.title == group }) else { return nil }
         return result.value
@@ -44,6 +67,30 @@ final class ToDoStore: ObservableObject {
         grouped.insert(todo, at: 0)
         grouped.sort { $0.timestamp > $1.timestamp }
         return (group, grouped)
+    }
+    
+    private func fetchAll() {
+        let results = todoService.fetchAll()
+        let todos = results.filter { !$0.isCompleted }.sorted { $0.timestamp > $1.timestamp }
+        let completed = results.filter { $0.isCompleted }.sorted { $0.timestamp > $1.timestamp }
+        
+        if !todos.isEmpty {
+            self.todos.append((.todo, todos))
+        }
+        
+        if !completed.isEmpty {
+            self.todos.append((.completed, completed))
+        }
+    }
+    
+    private func update(_ todo: Todo) {
+        let currentGroup: GroupTitle = todo.isCompleted ? .completed : .todo
+        guard var todos = todos(from: currentGroup),
+              let index = todos.firstIndex(where: { $0.id == todo.id }) else { return }
+        
+        todos[index] = todo
+        let indexOfCurrentGroup = currentGroup == .todo ? 0 : 1
+        self.todos[indexOfCurrentGroup] = (currentGroup, todos)
     }
 }
 
@@ -79,12 +126,13 @@ extension ToDoStore {
         
         var todo = todo
         todo.isRemind.toggle()
-        guard var todoGroup = todos(from: .todo),
-              let index = todoGroup.firstIndex(where: { $0.id == todo.id }) else { return }
-        
-        todoGroup[index] = todo
-        todos[0] = (.todo, todoGroup)
-        todoService.update(todo)
+        update(todo)
+//        guard var todoGroup = todos(from: .todo),
+//              let index = todoGroup.firstIndex(where: { $0.id == todo.id }) else { return }
+//
+//        todoGroup[index] = todo
+//        todos[0] = (.todo, todoGroup)
+//        todoService.update(todo)
     }
     
     func toggleCompletion(_ todo: Todo) {
@@ -113,19 +161,5 @@ extension ToDoStore {
             
         }
         todoService.update(todo)
-    }
-    
-    func fetchAll() {
-        let results = todoService.fetchAll()
-        let todos = results.filter { !$0.isCompleted }.sorted { $0.timestamp > $1.timestamp }
-        let completed = results.filter { $0.isCompleted }.sorted { $0.timestamp > $1.timestamp }
-        
-        if !todos.isEmpty {
-            self.todos.append((.todo, todos))
-        }
-        
-        if !completed.isEmpty {
-            self.todos.append((.completed, completed))
-        }
     }
 }
