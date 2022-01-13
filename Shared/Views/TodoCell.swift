@@ -34,7 +34,7 @@ struct TodoCell: View {
                         }
                     }
                     .font(.caption)
-                    .foregroundColor(Pallet.secondaryText)
+                    .foregroundColor(Pallet.secondary)
                 }
             }
             Spacer()
@@ -45,7 +45,7 @@ struct TodoCell: View {
     }
     
     var textColor: Color {
-        todo.isCompleted ? Pallet.secondaryText : Pallet.primaryText
+        todo.isCompleted ? Pallet.tertiary : Pallet.primary
     }
 }
 

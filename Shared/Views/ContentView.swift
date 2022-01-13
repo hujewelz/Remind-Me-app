@@ -21,7 +21,6 @@ struct ContentView: View {
                 NewItemView(text: $store.currenTodoTitle, onSubmit: store.addOrUpdateTodo(title:))
                     .offset(x: 0, y: screenHeight - proxy.safeAreaInsets.bottom - proxy.safeAreaInsets.top - 44)
             }
-            .tint(Pallet.tint)
         }
         .onAppear {
             UITableView.appearance().backgroundColor = .clear

@@ -9,18 +9,19 @@ import SwiftUI
 import UIKit
 
 enum Pallet {
-    static let tint = Color.purple
-    static let primaryText = Color.purple
-    static let secondaryText = Color(uiColor: .systemGray2)
+    static let primary = Color(uiColor: UIColor(named: "primary")!)
+    static let secondary = Color(uiColor: UIColor(named: "secondary")!)
+    static let tertiary = Color(uiColor: UIColor(named: "tertiary")!)
     static let systemBackground = Color(uiColor: .systemBackground)
     
-    static let gradientStart = Color(uiColor: UIColor(dynamicProvider: { colletction in
-        return colletction.userInterfaceStyle == .light
-            ? UIColor(red: 252.0/255, green: 241.0/255, blue: 234.0/255, alpha: 1.0)
-            : UIColor(red: 252.0/255, green: 241.0/255, blue: 234.0/255, alpha: 1.0)
-    }))
+    static let gradientStart = Color(uiColor: UIColor(named: "gradientStart")!)
+    static let gradientEnd = Color(uiColor: UIColor(named: "gradientEnd")!)
     
-    static let gradientEnd = Color(uiColor: UIColor(dynamicProvider: { colletction in
-        return UIColor.systemBackground
-    }))
+    
+    static let gradientBg = LinearGradient.linearGradient(colors: [Pallet.gradientStart, Pallet.gradientEnd],
+                                                          startPoint: UnitPoint.topTrailing,
+                                                          endPoint: UnitPoint.bottomLeading)
 }
+
+
+

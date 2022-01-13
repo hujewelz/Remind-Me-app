@@ -54,10 +54,7 @@ struct TodoList: View {
             }
         }
         .listStyle(PlainListStyle())
-        .background(LinearGradient(colors: [Pallet.gradientStart, Pallet.gradientEnd],
-                                   startPoint: UnitPoint(x: 0.5, y: 0),
-                                   endPoint: UnitPoint(x: 0.5, y: 1))
-        )
+        .background(Pallet.gradientBg)
     }
     
     private func delete(at indexSet: IndexSet) {

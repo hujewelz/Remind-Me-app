@@ -28,7 +28,7 @@ struct NewItemView: View {
             TextField("Do what you want...", text: $text)
                 .focused($isInputActive)
                 .font(.body.weight(.medium))
-                .foregroundColor(Pallet.primaryText)
+                .foregroundColor(Pallet.primary)
                 .padding(.trailing, 16)
                 .padding(.vertical, 8)
                 .onSubmit {
