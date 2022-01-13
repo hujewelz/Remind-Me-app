@@ -189,6 +189,15 @@
 			path = "Todo-ext";
 			sourceTree = "<group>";
 		};
+		C232E3CD2790334F00810824 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C2AA6EF7278EE25600933147 /* TodoList.swift */,
+				C217CF9F278D91C200F05543 /* NewItemView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		C2AA6EE0278E689C00933147 /* Others */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +232,7 @@
 		C2D246EA278571A900B7264F /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C232E3CD2790334F00810824 /* Components */,
 				C2D2472E2785776600B7264F /* Views */,
 				C2D2472F2785776E00B7264F /* Model */,
 				C2AA6EED278EBB5400933147 /* ViewModifier */,
@@ -278,8 +288,6 @@
 				C2D246EE278571A900B7264F /* ContentView.swift */,
 				C2D247302785779000B7264F /* TodoCell.swift */,
 				C2D24733278578FC00B7264F /* NewTodoView.swift */,
-				C217CF9F278D91C200F05543 /* NewItemView.swift */,
-				C2AA6EF7278EE25600933147 /* TodoList.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
