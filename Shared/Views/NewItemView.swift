@@ -26,6 +26,7 @@ struct NewItemView: View {
             .foregroundColor(Color.primary)
 
             TextField("Do what you want...", text: $text)
+                .submitLabel(.done)
                 .focused($isInputActive)
                 .font(.body.weight(.medium))
                 .foregroundColor(Pallet.primary)
