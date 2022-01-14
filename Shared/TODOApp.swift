@@ -15,6 +15,7 @@ struct TODOApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(store: ToDoStore(service: persistenceController))
+//                .environment(\.locale, .init(identifier: "zh"))
         }
     }
 }

@@ -32,7 +32,7 @@ struct ContentView: View {
         NavigationView {
             TodoList(store: store)
             .padding(.bottom, offset)
-            .navigationBarTitle("This is your day!")
+            .navigationBarTitle(LocalizedStringKey(Localize.playYourDay.rawValue))
 //            .sheet(item: $store.selectedTodo, onDismiss: {
 //                
 //            }, content: { todo in
