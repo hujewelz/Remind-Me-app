@@ -13,6 +13,7 @@ enum Pallet {
     static let secondary = Color(uiColor: UIColor(named: "secondary")!)
     static let tertiary = Color(uiColor: UIColor(named: "tertiary")!)
     static let systemBackground = Color(uiColor: .systemBackground)
+    static let iconPrimary = Color(uiColor: UIColor(named: "iconPrimary")!)
     
     static let gradientStart = Color(uiColor: UIColor(named: "gradientStart")!)
     static let gradientEnd = Color(uiColor: UIColor(named: "gradientEnd")!)
