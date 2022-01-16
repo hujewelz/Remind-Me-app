@@ -17,9 +17,9 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { proxy in
             ZStack(alignment: .topLeading) {
-                content(offset: 44)
+                content(offset: inputViewHeight(of: proxy))
                 NewItemView(text: $store.currenTodoTitle, onSubmit: store.addOrUpdateTodo(title:))
-                    .offset(x: 0, y: screenHeight - proxy.safeAreaInsets.bottom - proxy.safeAreaInsets.top - 44)
+                    .offset(x: 0, y: screenHeight - proxy.safeAreaInsets.bottom - proxy.safeAreaInsets.top - inputViewHeight(of: proxy))
             }
         }
         .onAppear {
@@ -44,11 +44,15 @@ struct ContentView: View {
                 }
             }
         }
+        .background(Pallet.gradientBg)
         .navigationViewStyle(StackNavigationViewStyle())
         .searchable(text: $store.searchText)
         
     }
     
+    func inputViewHeight(of proxy: GeometryProxy) -> CGFloat {
+        proxy.safeAreaInsets.bottom <= 34 ? (44 + 16) : NewItemView.height
+    }
     
 }
 
