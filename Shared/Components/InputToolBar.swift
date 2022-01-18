@@ -9,8 +9,7 @@ import SwiftUI
 
 struct InputToolBar: View {
     
-    
-    @State private var showsDatePicker = false
+    @ObservedObject var vm: InputToolBarVM
     
     var body: some View {
         ZStack(alignment: .leading) {
@@ -21,9 +20,9 @@ struct InputToolBar: View {
                     Image(systemName: "bell")
                 }.padding(.leading)
                 
-                if pickedDate == nil {
+                if vm.pickedDate == nil {
                     Button {
-                        showsDatePicker.toggle()
+                        vm.showsDatePicker.toggle()
                     } label: {
                         Image(systemName: "calendar.badge.clock")
                     }
@@ -53,24 +52,30 @@ struct InputToolBar: View {
     }
     
     private var dateViewOffset: CGFloat {
-        showsDatePicker ? 84 : -300
+        vm.showsDatePicker ? 84 : -300
     }
-    
-    @State private var pickedDate: String?
     
     private var dateView: some View {
         HStack(alignment:.center, spacing: 10) {
-            ForEach(dateToPick, id: \.self) { date in
+            ForEach(InputToolBarVM.DateToChoose.allCases, id: \.self) { date in
                 Button(action: {
-                    pickedDate = date
-                    showsDatePicker = false
+                    vm.pickedDate = date
+                    vm.showsDatePicker = false
                 }, label: {
-                    Text(date)
-                        .font(.callout)
-                        .fontWeight(.bold)
+                    Text(date.rawValue)
+                        .font(.callout.bold())
                 })
                     
             }
+            
+            Button {
+                
+            } label: {
+                Image(systemName: "plus")
+                    .font(.callout.bold())
+                    
+            }
+
         }
         .padding(.horizontal)
         .frame(height: 32)
@@ -83,9 +88,9 @@ struct InputToolBar: View {
         HStack(alignment: .center) {
             Image(systemName: "calendar")
                 .font(.system(size: 14))
-            Text("Due \(pickedDate!)")
+            Text("Due \(vm.pickedDate!.rawValue)")
             Button {
-                pickedDate = nil
+                vm.pickedDate = nil
             } label: {
                 Image(systemName: "xmark.circle.fill")
                     .foregroundColor(.white)
@@ -104,7 +109,7 @@ struct InputToolBar: View {
 
 struct DatePickButton_Previews: PreviewProvider {
     static var previews: some View {
-        InputToolBar()
+        InputToolBar(vm: InputToolBarVM())
             
     }
 }

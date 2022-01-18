@@ -18,7 +18,7 @@ struct ContentView: View {
         GeometryReader { proxy in
             ZStack(alignment: .topLeading) {
                 content(offset: inputViewHeight(of: proxy))
-                NewItemView(text: $store.currenTodoTitle, onSubmit: store.addOrUpdateTodo(title:))
+                InputView(text: $store.currenTodoTitle, onSubmit: store.addOrUpdateTodo(title:))
                     .offset(x: 0, y: screenHeight - proxy.safeAreaInsets.bottom - proxy.safeAreaInsets.top - inputViewHeight(of: proxy))
             }
         }
@@ -51,7 +51,7 @@ struct ContentView: View {
     }
     
     func inputViewHeight(of proxy: GeometryProxy) -> CGFloat {
-        proxy.safeAreaInsets.bottom <= 34 ? (44 + 16) : NewItemView.height
+        proxy.safeAreaInsets.bottom <= 34 ? (44 + 16) : InputView.height
     }
     
 }

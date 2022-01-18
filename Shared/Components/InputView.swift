@@ -1,5 +1,5 @@
 //
-//  NewItemView.swift
+//  InputView.swift
 //  TODO
 //
 //  Created by huluobo on 2022/1/11.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NewItemView: View {
+struct InputView: View {
     
     static var height: CGFloat = 88 + 16
    
@@ -15,6 +15,8 @@ struct NewItemView: View {
     let onSubmit: ((String) -> Void)?
     
     @FocusState var isInputActive: Bool
+    
+    @StateObject private var toolBarVm = InputToolBarVM()
     
     var body: some View {
         VStack(spacing: 0) {
@@ -29,9 +31,10 @@ struct NewItemView: View {
                     self.onSubmit?(text)
                     text = ""
                     isInputActive = false
+                    toolBarVm.reset()
                 }
         
-            InputToolBar()
+            InputToolBar(vm: toolBarVm)
                  .opacity(alpha)
                  .animation(.linear(duration: 0.2), value: alpha)
             
@@ -49,7 +52,7 @@ struct NewItemView: View {
 
 struct NewItemView_Previews: PreviewProvider {
     static var previews: some View {
-        NewItemView(text: Binding.constant("123")) { _ in
+        InputView(text: Binding.constant("123")) { _ in
             
         }
     }
