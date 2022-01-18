@@ -23,6 +23,7 @@ struct NewItemView: View {
                 .focused($isInputActive)
                 .font(.body.weight(.medium))
                 .foregroundColor(Pallet.primary)
+                .padding(.horizontal, 16)
                 .frame(height: 44)
                 .onSubmit {
                     self.onSubmit?(text)
@@ -30,10 +31,12 @@ struct NewItemView: View {
                     isInputActive = false
                 }
         
-            toolBar
+            InputToolBar()
+                 .opacity(alpha)
+                 .animation(.linear(duration: 0.2), value: alpha)
             
         }
-        .padding(.horizontal, 16)
+        
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
         .background(Pallet.systemBackground)
@@ -41,31 +44,6 @@ struct NewItemView: View {
     
     var alpha: Double {
         isInputActive ? 1 : 0
-    }
-    
-    var toolBar: some View {
-        HStack(alignment: .center, spacing: 16) {
-            Button {
-                
-            } label: {
-                Image(systemName: "calendar.badge.clock")
-            }
-          
-            
-            Button {
-                
-            } label: {
-                Image(systemName: "bell")
-            }
-            
-            
-            Spacer()
-        }
-        .tint(Pallet.iconPrimary)
-        .font(.title3.weight(.bold))
-        .frame(height: 44)
-        .opacity(alpha)
-        .animation(.linear(duration: 0.2), value: alpha)
     }
 }
 
