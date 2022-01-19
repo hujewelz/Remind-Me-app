@@ -18,7 +18,7 @@ struct ContentView: View {
         GeometryReader { proxy in
             ZStack(alignment: .topLeading) {
                 content(offset: inputViewHeight(of: proxy))
-                InputView(text: $store.currenTodoTitle, onSubmit: store.addOrUpdateTodo(title:))
+                InputView(vm: store.inputViewModel, onSubmit: store.addOrUpdateTodo(_:))
                     .offset(x: 0, y: screenHeight - proxy.safeAreaInsets.bottom - proxy.safeAreaInsets.top - inputViewHeight(of: proxy))
             }
         }

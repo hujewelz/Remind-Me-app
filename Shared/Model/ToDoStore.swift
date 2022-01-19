@@ -15,7 +15,11 @@ final class ToDoStore: ObservableObject {
     
     @Published var todos: [GroupedTodos] = []
     @Published var searchResult: [GroupedTodos] = []
-    @Published var selectedTodo: Todo?
+    @Published var selectedTodo: Todo? {
+        didSet {
+            inputViewModel.todo = selectedTodo
+        }
+    }
     @Published var currenTodoTitle = ""
     @Published var searchText = "" {
         didSet {
@@ -23,6 +27,8 @@ final class ToDoStore: ObservableObject {
             searchTodo(title: searchText)
         }
     }
+    
+    var inputViewModel = InputViewModel()
     
     private var allTodo: [Todo] = [] {
         didSet {
@@ -81,16 +87,14 @@ final class ToDoStore: ObservableObject {
         }
     }
     
-    func addOrUpdateTodo(title: String) {
-        guard !title.isAbsoluteEmpty else { return }
-        if var selectedTodo = selectedTodo {
-            if selectedTodo.title != title.absoluteText {
-                selectedTodo.title = title.absoluteText
-                update(selectedTodo)
-            }
+    func addOrUpdateTodo(_ todo: Todo) {
+        guard !todo.title.isAbsoluteEmpty else { return }
+        print("Create or update todo: ", todo)
+        if let selectedTodo = selectedTodo, selectedTodo.id == todo.id {
+            update(todo)
             self.selectedTodo = nil
         } else {
-            create(Todo(title: title.absoluteText))
+            create(todo)
         }
     }
     

@@ -10,17 +10,16 @@ import SwiftUI
 struct InputView: View {
     
     static var height: CGFloat = 88 + 16
-   
-    @Binding var text: String
-    let onSubmit: ((String) -> Void)?
+  
+    @ObservedObject var vm: InputViewModel
+    let onSubmit: ((Todo) -> Void)?
     
     @FocusState var isInputActive: Bool
     
-    @StateObject private var toolBarVm = InputToolBarVM()
     
     var body: some View {
         VStack(spacing: 0) {
-            TextField("Do what you want...", text: $text)
+            TextField("Do what you want...", text: $vm.text)
                 .submitLabel(.done)
                 .focused($isInputActive)
                 .font(.body.weight(.medium))
@@ -28,32 +27,37 @@ struct InputView: View {
                 .padding(.horizontal, 16)
                 .frame(height: 44)
                 .onSubmit {
-                    self.onSubmit?(text)
-                    text = ""
                     isInputActive = false
-                    toolBarVm.reset()
+                    vm.submit()
+                    onSubmit?(vm.todo!)
+                    vm.reset()
                 }
         
-            InputToolBar(vm: toolBarVm)
+            InputToolBar(vm: vm)
                  .opacity(alpha)
                  .animation(.linear(duration: 0.2), value: alpha)
             
         }
-        
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
         .background(Pallet.systemBackground)
+        .sheet(isPresented: $vm.showsDatePicker) {
+            
+        } content: {
+            DatePickView()
+        }
+
     }
     
     var alpha: Double {
         isInputActive ? 1 : 0
     }
 }
-
-struct NewItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        InputView(text: Binding.constant("123")) { _ in
-            
-        }
-    }
-}
+//
+//struct NewItemView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        InputView(text: Binding.constant("123")) { _ in
+//
+//        }
+//    }
+//}

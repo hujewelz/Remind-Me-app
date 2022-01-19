@@ -26,11 +26,12 @@ struct TodoCell: View {
                     .font(.body)
                     .foregroundColor(textColor)
                 
-                if !todo.isCompleted && todo.dueDate != nil {
+                if todo.dueDate != nil {
                     HStack(spacing: 2) {
-                        Text(todo.dueDate!, style: .date)
+                        Text(todo.dueDate!.dateStr)
                         if todo.isRemind {
-                            Image(systemName: "bell")
+                            Image(systemName: "bell.fill")
+                                .font(.system(size: 8))
                         }
                     }
                     .font(.caption)
