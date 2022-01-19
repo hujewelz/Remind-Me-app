@@ -11,6 +11,8 @@ struct TodoCell: View {
     let todo: Todo
     let onCheck: (() -> Void)?
     
+    @State private var isPresented = false
+    
     var body: some View {
         HStack(alignment: .center, spacing: 8) {
             Image(systemName: todo.isCompleted ? "checkmark.diamond" : "diamond")
@@ -40,9 +42,19 @@ struct TodoCell: View {
             }
             Spacer()
             
+            Button {
+               isPresented = true
+            } label: {
+                Image(systemName: "exclamationmark.circle")
+                    .foregroundColor(Pallet.iconPrimary)
+            }
+
         }
         .tint(textColor)
         .padding(.vertical, 8)
+        .sheet(isPresented: $isPresented, onDismiss: nil) {
+           DetailView()
+        }
     }
     
     var textColor: Color {

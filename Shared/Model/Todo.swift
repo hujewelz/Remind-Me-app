@@ -18,6 +18,18 @@ struct Todo: Codable, Identifiable {
     var content: String?
 }
 
+struct SubTask: Codable, Identifiable {
+    var id: UUID
+    var title: String
+    var isCompleted: Bool
+}
+
+extension SubTask {
+    init() {
+        self.init(id: UUID(), title: "", isCompleted: false)
+    }
+}
+
 extension Todo {
     init(title: String) {
         id = UUID()
