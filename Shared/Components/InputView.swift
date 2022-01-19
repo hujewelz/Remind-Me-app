@@ -27,10 +27,10 @@ struct InputView: View {
                 .padding(.horizontal, 16)
                 .frame(height: 44)
                 .onSubmit {
-                    isInputActive = false
                     vm.submit()
                     onSubmit?(vm.todo!)
                     vm.reset()
+                    isInputActive = false
                 }
         
             InputToolBar(vm: vm)
@@ -44,9 +44,10 @@ struct InputView: View {
         .sheet(isPresented: $vm.showsDatePicker) {
             
         } content: {
-            DatePickView()
+            DatePickView(date: $vm.dateForDatePicker) { date in
+                vm.pickDate(date)
+            }
         }
-
     }
     
     var alpha: Double {

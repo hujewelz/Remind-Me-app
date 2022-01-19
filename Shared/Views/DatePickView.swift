@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct DatePickView: View {
-    @State private var date = Date()
+    @Binding var date: Date
+    let confirmed: (Date) -> Void
     
     @Environment(\.dismiss) var dismiss
     
@@ -30,6 +31,7 @@ struct DatePickView: View {
                         ToolbarItem(placement: .confirmationAction) {
                             Button {
                                 dismiss()
+                                confirmed(date)
                             } label: {
                                 Text("Done")
                             }
@@ -46,6 +48,6 @@ struct DatePickView: View {
 
 struct DatePickView_Previews: PreviewProvider {
     static var previews: some View {
-        DatePickView()
+        DatePickView(date: .constant(Date())) { _ in }
     }
 }

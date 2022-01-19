@@ -92,10 +92,10 @@ final class ToDoStore: ObservableObject {
         print("Create or update todo: ", todo)
         if let selectedTodo = selectedTodo, selectedTodo.id == todo.id {
             update(todo)
-            self.selectedTodo = nil
         } else {
             create(todo)
         }
+        selectedTodo = nil
     }
     
    

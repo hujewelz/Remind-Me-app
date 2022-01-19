@@ -13,10 +13,16 @@ extension InputView {
     class ViewModel: ObservableObject {
 
         @Published var text: String = ""
-        @Published var pickedDate: Date?
+        @Published var pickedDate: Date? {
+            didSet {
+                dateForDatePicker = pickedDate ?? DateToChoose.today.date
+            }
+        }
         @Published var isReminded: Bool = false
         @Published var showsDatePicker = false
         @Published var showsDateToPicker = false
+        
+        @Published var dateForDatePicker = DateToChoose.today.date
         
         var todo: Todo? {
             didSet {
@@ -24,10 +30,6 @@ extension InputView {
                 pickedDate = todo?.dueDate
                 isReminded = todo?.isRemind ?? false
             }
-        }
-        
-        init() {
-            print("created")
         }
     }
 }
@@ -60,6 +62,7 @@ extension InputViewModel {
     }
     
     func pickDate(_ date: Date) {
+        showsDateToPicker = false
         pickedDate = date
     }
    
@@ -76,7 +79,6 @@ extension InputViewModel {
         showsDatePicker = false
         showsDateToPicker = false
         pickedDate = nil
-        todo = nil
     }
 }
 
@@ -86,11 +88,14 @@ extension Date {
         let now = Date()
         let currentWeekDay = calendar.component(.weekday, from: now)
         let weekDay = calendar.component(.weekday, from: self)
-        
-        if currentWeekDay == weekDay {
-            return "Today"
-        } else if weekDay - currentWeekDay == 1 {
-            return "Tomorrow"
+        let currentWeek = calendar.component(.weekOfMonth, from: now)
+        let week = calendar.component(.weekOfMonth, from: self)
+        if currentWeek == week {
+            if currentWeekDay == weekDay {
+                return "Today"
+            } else if weekDay - currentWeekDay == 1 {
+                return "Tomorrow"
+            }
         }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEE, MMM d"
