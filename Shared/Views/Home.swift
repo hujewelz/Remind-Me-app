@@ -13,14 +13,22 @@ struct Home: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(alignment: .center, spacing: 8, pinnedViews: [.sectionHeaders]) {
-                
                 Section {
                     MyDatePicker()
                         .padding(.horizontal)
                 } header: {
                     headerView()
                 }
+                .padding(.bottom)
+                list()
             }
+        }
+    }
+   
+    private func list() -> some View {
+        ForEach((0...6), id: \.self) { _ in
+            TaskCell()
+                .padding(.horizontal)
         }
     }
     
@@ -55,7 +63,6 @@ struct Home: View {
                 
             }
             .frame(height: 44)
-//            .background(Color.orange)
         }
         .padding(.horizontal)
         .padding(.bottom, 8)
