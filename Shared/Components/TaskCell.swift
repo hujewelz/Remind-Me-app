@@ -21,10 +21,18 @@ struct TaskCell: View {
                     .font(.title3)
                     .foregroundColor(Color.primary)
                 
-                Text("Calendar app interaction build")
+                Text("Calendar app interaction build, it show hard 🤯")
                     .lineLimit(2)
                 
-                Label("12:00 to 14:30 1.5 hours", systemImage: "clock.fill")
+                HStack {
+                    Label("12:00 to 14:30 • 1.5 hours", systemImage: "clock.fill")
+                        .font(.footnote)
+                    Image(systemName: "bell.fill")
+                        .font(.system(size: 8))
+                }
+                
+//                Label("1 of 4", systemImage: "list.bullet.circle")
+                Text("Tasks • 1 of 4")
                     .font(.footnote)
             }
             
@@ -47,7 +55,7 @@ struct TaskCell: View {
                 
                 // Tag
                 Text("Meeting")
-                    .font(.subheadline)
+                    .font(.footnote.bold())
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
                     .background(color.opacity(0.15))

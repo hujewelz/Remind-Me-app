@@ -24,63 +24,71 @@ struct MyDatePicker: View {
     }
     
     var body: some View {
-        LazyVGrid(columns: colums, alignment: .center, spacing: 8, pinnedViews: [.sectionHeaders]) {
+        LazyVGrid(columns: colums, pinnedViews: [.sectionHeaders]) {
             Section {
                 ForEach(store.datesToShow) { date in
-                    ZStack(alignment: .bottom) {
+                    ZStack {
                         Text(date.day)
-                            .font(.title3)
+                            .font(.system(size: 16))
                             .fontWeight(store.isToday(date.date) ? .semibold : .regular)
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 8)
+                            .opacity(date.didShow ? 1 : 0)
                         if store.isToday(date.date) {
                             currentDayView()
+                                .offset(y: 14)
                         }
                     }
+                    .frame(width: 32, height: 36)
                     .foregroundColor(store.isInSameDay(date.date) ? Color.white : Color.primary)
                     .background(
                         ZStack(alignment: .bottom) {
                             if store.isInSameDay(date.date) {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color.blue)
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color.pink)
                                     .matchedGeometryEffect(id: "BGANIMATION", in: animation)
                             }
                         }
                     )
                     .onTapGesture {
-                        withAnimation {
-                            store.currentDate = date.date
+                        withAnimation(.spring()) {
+                            if store.isInSameDay(date.date) {
+                                store.changeDisplayStyle()
+                            } else {
+                                store.currentDate = date.date
+                            }
                         }
                     }
                 }
             } header: {
-                headerView()
+                weekDayHeader()
             }
         }
+        .padding(.horizontal)
+        .padding(.bottom)
+        .background(Pallet.systemBackground)
     }
     
     private func currentDayView() -> some View {
-        let colors: [Color] = [.orange, .purple, .pink]
+        let colors: [Color] = [.orange, .red, .purple]
         return HStack(spacing: 2) {
-            ForEach(colors, id: \.self) { color in
+            ForEach(colors.indices, id: \.self) { i in
                 Circle()
-                    .fill(color.opacity(0.4))
-                    .frame(width: 3, height: 3)
-                    .offset(y: -2)
+                    .fill(colors[i].opacity(0.6))
+                    .frame(width: i == 1 ? 5 : 4, height: i == 1 ? 5 : 4)
             }
         }
     }
     
-    private func headerView() -> some View {
+    private func weekDayHeader() -> some View {
         LazyVGrid(columns: colums) {
             ForEach(store.weekdays, id: \.self) { weekday in
                Text(weekday)
+                    .font(.system(size: 15))
                     .foregroundColor(Pallet.secondary)
             }
         }
         .padding(.vertical, 8)
+        .background(Pallet.systemBackground)
     }
-    
 }
 
 
@@ -97,30 +105,49 @@ final class DatePickerStore: ObservableObject {
     @Published var datesToShow: [DisplayibleDate] = []
     @Published var currentDate = Date()
     
+    var displayStyle = MyDatePicker.DisplayStyle.week
+    
     let weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
     init() {
-        Task {
+       loadDateOfCurrentWeek()
+    }
+    
+    func changeDisplayStyle() {
+        switch displayStyle {
+        case .month:
+            displayStyle = .week
+            loadDateOfCurrentWeek()
+        case .week:
+            displayStyle = .month
             loadDateOfCurrentMonth()
-            print("current thread: ", Thread.current)
         }
     }
     
     private func loadDateOfCurrentMonth() {
-        datesToShow = dateOfMonth(Date())
-        loadDateOfCurrentWeek()
+        let dates = dateOfMonth(Date())
+//        withAnimation {
+            datesToShow = dates
+//        }
     }
     
     private func loadDateOfCurrentWeek() {
         let calendar = Calendar.current
         
-        let currentWeek = calendar.component(.weekOfMonth, from: Date())
+        let now = currentDate
+        let currentMonth = calendar.component(.month, from: now)
+        guard let beginOfWeek = calendar.dateInterval(of: .weekOfMonth, for: now)?.start else { return }
         
-        Task {
-            datesToShow = datesToShow.filter { date in
-                calendar.component(.weekOfMonth, from: date.date) == currentWeek
+        let dates = (0..<7).compactMap { i -> DisplayibleDate? in
+            if let date = calendar.date(byAdding: .day, value: i, to: beginOfWeek) {
+                let month = calendar.component(.month, from: date)
+                return DisplayibleDate(date: date, didShow: month == currentMonth)
             }
+            return nil
         }
+//        withAnimation {
+            datesToShow = dates
+//        }
     }
     
     func isToday(_ date: Date) -> Bool {
