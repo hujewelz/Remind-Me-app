@@ -70,18 +70,23 @@ struct NewTaskView: View {
         contentWithTitle("Steps") {
             if subTasks.isEmpty {
                 Button {
-                    addEmptyTask()
+                    addEmptySubTask()
                 } label: {
                     HStack {
                         Image(systemName: "plus")
                         Text("Add Steps")
                     }
                 }
+                .font(.body.weight(.regular))
                 .frame(height: 44)
                 .lExpanded()
             } else {
                 ForEach($subTasks) { $task in
-                    SubTaskCell(text: $task.title, isCompleted: $task.isCompleted)
+                    SubTaskCell($task.title, isCompleted: $task.isCompleted) {
+                        deleteSubTask(task)
+                    } onSubmit: {
+                        addEmptySubTask()
+                    }
                 }
             }
         }
@@ -126,9 +131,17 @@ struct NewTaskView: View {
         }
     }
     
-    private func addEmptyTask() {
+    private func addEmptySubTask() {
         withAnimation {
             subTasks.append(SubTask())
+        }
+    }
+    
+    private func deleteSubTask(_ task: SubTask) {
+        guard let index = subTasks.firstIndex(where: { $0.id == task.id }) else { return }
+        
+        withAnimation {
+            subTasks.remove(at: index)
         }
     }
 }

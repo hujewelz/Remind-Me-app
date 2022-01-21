@@ -11,6 +11,21 @@ struct SubTaskCell: View {
     @Binding var text: String
     @Binding var isCompleted: Bool
     
+    let onSubmint: (() -> Void)?
+    let onDelete: (() -> Void)?
+    
+    @FocusState private var isInputActive
+    
+    init(_ text: Binding<String>,
+         isCompleted: Binding<Bool>,
+         onDelete: (() -> Void)? = nil,
+         onSubmit: (() -> Void)? = nil) {
+        _text = text
+        _isCompleted = isCompleted
+        self.onDelete = onDelete
+        self.onSubmint = onSubmit
+    }
+    
     var body: some View {
         HStack(spacing: 16) {
             Button {
@@ -21,25 +36,31 @@ struct SubTaskCell: View {
                 Image(systemName: isCompleted ? "checkmark.circle.fill" : "circle")
             }
             TextField("Add tasks", text: $text)
+                .submitLabel(.next)
+                .focused($isInputActive)
+                .font(.body.weight(.regular))
+                .onSubmit {
+                    onSubmint?()
+                }
             
             Spacer()
             
             Button {
-                
+                onDelete?()
             } label: {
                 Image(systemName: "xmark")
+                    .imageScale(.small)
                     .foregroundColor(Pallet.iconPrimary)
             }
-//            .padding(.horizontal)
             .padding(.vertical, 8)
+        }.onAppear {
+            isInputActive = true
         }
     }
 }
 
 struct SubTaskCell_Previews: PreviewProvider {
     static var previews: some View {
-        SubTaskCell(text: .constant("Take a nap"), isCompleted: .constant(false))
-            .frame(width: 360.0, height: 60.0)
-            
+        SubTaskCell(.constant("Take a nap"), isCompleted: .constant(false))
     }
 }

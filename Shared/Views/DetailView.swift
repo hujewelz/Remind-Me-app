@@ -30,7 +30,7 @@ struct DetailView: View {
                         .padding(.vertical, 8)
                     
                     
-                    SubTaskCell(text: $task.title, isCompleted: $task.isCompleted)
+                    SubTaskCell($task.title, isCompleted: $task.isCompleted)
                     
                     addSubTaskRow
                 }
