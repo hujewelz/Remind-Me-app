@@ -27,7 +27,7 @@ struct NewTaskView: View {
     
     private var content: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: 30) {
                 groupedContent(spacing: 8) {
                     TextEditor(text: $title)
                         .focused($isInputActive)
@@ -37,7 +37,7 @@ struct NewTaskView: View {
                     subTasksView()
                 }
                 
-                groupedContent(spacing: 20) {
+                groupedContent(spacing: 30) {
                     HStack(spacing: 60) {
                         datePickerWithTitle("Start Time", date: $startTime)
                         datePickerWithTitle("End Time", date: $endTime)
