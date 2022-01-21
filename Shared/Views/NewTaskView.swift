@@ -16,6 +16,7 @@ struct NewTaskView: View {
     @FocusState private var isInputActive: Bool
     
     @State private var subTasks: [SubTask] = []
+    @State private var isPresented = false
     
     
     var body: some View {
@@ -61,7 +62,6 @@ struct NewTaskView: View {
             .padding()
             .font(.system(size: 16))
         }
-        
         .onTapGesture {
             resignFirstResonder()
         }
@@ -96,14 +96,9 @@ struct NewTaskView: View {
     
     private func chooseTag() -> some View {
         HStack(spacing: 20) {
-            Text("Meeting")
-                .padding(.horizontal)
-                .padding(.vertical, 8)
-                .background(Color.orange.opacity(0.1))
-                .clipShape(Capsule())
-            
+            TagView()
             Button {
-                
+                isPresented.toggle()
             } label: {
                 Image(systemName: "plus")
                     .imageScale(.medium)
@@ -113,6 +108,9 @@ struct NewTaskView: View {
                 Circle()
                     .stroke(Color.secondary, lineWidth: 1)
             }
+        }
+        .sheet(isPresented: $isPresented) {
+            ChooseTagView()
         }
     }
    

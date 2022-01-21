@@ -24,6 +24,12 @@
 		C232E3D82790372400810824 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C232E3D62790372400810824 /* Localize.swift */; };
 		C25C3534279A9C6E00409300 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C3533279A9C6E00409300 /* ModalView.swift */; };
 		C25C3535279A9C6E00409300 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C3533279A9C6E00409300 /* ModalView.swift */; };
+		C25C3537279AB23400409300 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C3536279AB23400409300 /* TagView.swift */; };
+		C25C3538279AB23400409300 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C3536279AB23400409300 /* TagView.swift */; };
+		C25C353A279AB25600409300 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C3539279AB25600409300 /* Tag.swift */; };
+		C25C353B279AB25600409300 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C3539279AB25600409300 /* Tag.swift */; };
+		C25C353D279AB3E500409300 /* ChooseTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C353C279AB3E500409300 /* ChooseTagView.swift */; };
+		C25C353E279AB3E500409300 /* ChooseTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C353C279AB3E500409300 /* ChooseTagView.swift */; };
 		C2AA6EE2278E68B700933147 /* Pallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AA6EE1278E68B700933147 /* Pallet.swift */; };
 		C2AA6EE3278E68B700933147 /* Pallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AA6EE1278E68B700933147 /* Pallet.swift */; };
 		C2AA6EE5278E6BDF00933147 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AA6EE4278E6BDF00933147 /* Todo.swift */; };
@@ -128,6 +134,9 @@
 		C232E3D5279035E500810824 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C232E3D62790372400810824 /* Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
 		C25C3533279A9C6E00409300 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
+		C25C3536279AB23400409300 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		C25C3539279AB25600409300 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		C25C353C279AB3E500409300 /* ChooseTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTagView.swift; sourceTree = "<group>"; };
 		C2AA6EE1278E68B700933147 /* Pallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pallet.swift; sourceTree = "<group>"; };
 		C2AA6EE4278E6BDF00933147 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		C2AA6EE7278E6EE200933147 /* TodoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoService.swift; sourceTree = "<group>"; };
@@ -229,6 +238,7 @@
 				C2258573279A5C1800085433 /* TaskList.swift */,
 				C2258576279A637300085433 /* SearchBar.swift */,
 				C25C3533279A9C6E00409300 /* ModalView.swift */,
+				C25C3536279AB23400409300 /* TagView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -348,6 +358,7 @@
 				C2BDE1BB2798F67700320618 /* Home.swift */,
 				C2BDE1CB279A58EF00320618 /* SearchTaskView.swift */,
 				C2258579279A8CDF00085433 /* NewTaskView.swift */,
+				C25C353C279AB3E500409300 /* ChooseTagView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -360,6 +371,7 @@
 				C2AA6EE4278E6BDF00933147 /* Todo.swift */,
 				C2AA6EE7278E6EE200933147 /* TodoService.swift */,
 				C2AA6EEA278E6FD900933147 /* TodoMO+Extension.swift */,
+				C25C3539279AB25600409300 /* Tag.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -543,6 +555,8 @@
 				C20300A52785A0A300F04B27 /* Todo_ext.intentdefinition in Sources */,
 				C2AA6EE8278E6EE200933147 /* TodoService.swift in Sources */,
 				C2AA6EEF278EBBA700933147 /* StrikethroughTextModifier.swift in Sources */,
+				C25C353A279AB25600409300 /* Tag.swift in Sources */,
+				C25C3537279AB23400409300 /* TagView.swift in Sources */,
 				C2030091278593BE00F04B27 /* ToDoStore.swift in Sources */,
 				C2D247312785779000B7264F /* TodoCell.swift in Sources */,
 				C2D24716278571AC00B7264F /* TODO.xcdatamodeld in Sources */,
@@ -554,6 +568,7 @@
 				C2AA6EF5278ECA2300933147 /* Extensions.swift in Sources */,
 				C2D24734278578FC00B7264F /* NewTodoView.swift in Sources */,
 				C2BDE1A92796B00D00320618 /* InputToolBar.swift in Sources */,
+				C25C353D279AB3E500409300 /* ChooseTagView.swift in Sources */,
 				C2D24718278571AC00B7264F /* TODOApp.swift in Sources */,
 				C2D2471A278571AC00B7264F /* ContentView.swift in Sources */,
 				C2AA6EF2278EC5C000933147 /* Const.swift in Sources */,
@@ -566,8 +581,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C25C353B279AB25600409300 /* Tag.swift in Sources */,
 				C217CFA1278D91C200F05543 /* InputView.swift in Sources */,
 				C2AA6EF0278EBBA700933147 /* StrikethroughTextModifier.swift in Sources */,
+				C25C3538279AB23400409300 /* TagView.swift in Sources */,
 				C225857B279A8CDF00085433 /* NewTaskView.swift in Sources */,
 				C2AA6EE3278E68B700933147 /* Pallet.swift in Sources */,
 				C2030092278593BE00F04B27 /* ToDoStore.swift in Sources */,
@@ -578,6 +595,7 @@
 				C2D24717278571AC00B7264F /* TODO.xcdatamodeld in Sources */,
 				C2D2471D278571AC00B7264F /* Persistence.swift in Sources */,
 				C2AA6EE9278E6EE200933147 /* TodoService.swift in Sources */,
+				C25C353E279AB3E500409300 /* ChooseTagView.swift in Sources */,
 				C2BDE1B7279806B100320618 /* DetailView.swift in Sources */,
 				C2D24735278578FC00B7264F /* NewTodoView.swift in Sources */,
 				C2BDE1B427979F1A00320618 /* InputViewModel.swift in Sources */,
