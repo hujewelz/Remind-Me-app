@@ -27,23 +27,24 @@ struct NewTaskView: View {
     private var content: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 20) {
-                contentWithTitle("Title") {
+                groupedContent(spacing: 8) {
                     TextEditor(text: $title)
                         .focused($isInputActive)
                         .font(.system(size: 24))
                         .frame(height: 80)
-                }
-                
-                subTasksView()
-                
-                HStack(spacing: 60) {
-                    datePickerWithTitle("Start Time", date: $startTime)
                     
-                    datePickerWithTitle("End Time", date: $endTime)
+                    subTasksView()
                 }
                 
-                contentWithTitle("Choose a Tag") {
-                    chooseTag()
+                groupedContent(spacing: 20) {
+                    HStack(spacing: 60) {
+                        datePickerWithTitle("Start Time", date: $startTime)
+                        datePickerWithTitle("End Time", date: $endTime)
+                    }
+                    
+                    contentWithTitle("Choose a Tag") {
+                        chooseTag()
+                    }
                 }
                 
                 VStack {
@@ -58,7 +59,7 @@ struct NewTaskView: View {
                 }
             }
             .padding()
-            .font(.system(size: 16, weight: .medium))
+            .font(.system(size: 16))
         }
         
         .onTapGesture {
@@ -67,7 +68,7 @@ struct NewTaskView: View {
     }
     
     private func subTasksView() -> some View {
-        contentWithTitle("Steps") {
+        VStack(spacing: 0) {
             if subTasks.isEmpty {
                 Button {
                     addEmptySubTask()
@@ -76,10 +77,10 @@ struct NewTaskView: View {
                         Image(systemName: "plus")
                         Text("Add Steps")
                     }
+                    .lExpanded()
                 }
                 .font(.body.weight(.regular))
-                .frame(height: 44)
-                .lExpanded()
+                .frame(height: 40)
             } else {
                 ForEach($subTasks) { $task in
                     SubTaskCell($task.title, isCompleted: $task.isCompleted) {
@@ -87,6 +88,7 @@ struct NewTaskView: View {
                     } onSubmit: {
                         addEmptySubTask()
                     }
+                    .frame(height: 40)
                 }
             }
         }
@@ -111,6 +113,12 @@ struct NewTaskView: View {
                 Circle()
                     .stroke(Color.secondary, lineWidth: 1)
             }
+        }
+    }
+   
+    private func groupedContent<Content>(spacing: Double = 16, @ViewBuilder content: () -> Content) -> some View where Content: View {
+        VStack(alignment: .leading, spacing: spacing) {
+            content()
         }
     }
     

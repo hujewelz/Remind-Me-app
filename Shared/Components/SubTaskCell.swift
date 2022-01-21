@@ -53,7 +53,9 @@ struct SubTaskCell: View {
                     .foregroundColor(Pallet.iconPrimary)
             }
             .padding(.vertical, 8)
-        }.onAppear {
+        }
+        
+        .onAppear {
             isInputActive = true
         }
     }
