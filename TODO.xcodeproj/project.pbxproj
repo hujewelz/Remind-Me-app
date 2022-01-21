@@ -16,10 +16,14 @@
 		C2258575279A5C1800085433 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2258573279A5C1800085433 /* TaskList.swift */; };
 		C2258577279A637300085433 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2258576279A637300085433 /* SearchBar.swift */; };
 		C2258578279A637300085433 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2258576279A637300085433 /* SearchBar.swift */; };
+		C225857A279A8CDF00085433 /* NewTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2258579279A8CDF00085433 /* NewTaskView.swift */; };
+		C225857B279A8CDF00085433 /* NewTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2258579279A8CDF00085433 /* NewTaskView.swift */; };
 		C232E3D1279035E100810824 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C232E3D4279035E100810824 /* Localizable.strings */; };
 		C232E3D2279035E100810824 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C232E3D4279035E100810824 /* Localizable.strings */; };
 		C232E3D72790372400810824 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C232E3D62790372400810824 /* Localize.swift */; };
 		C232E3D82790372400810824 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C232E3D62790372400810824 /* Localize.swift */; };
+		C25C3534279A9C6E00409300 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C3533279A9C6E00409300 /* ModalView.swift */; };
+		C25C3535279A9C6E00409300 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C3533279A9C6E00409300 /* ModalView.swift */; };
 		C2AA6EE2278E68B700933147 /* Pallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AA6EE1278E68B700933147 /* Pallet.swift */; };
 		C2AA6EE3278E68B700933147 /* Pallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AA6EE1278E68B700933147 /* Pallet.swift */; };
 		C2AA6EE5278E6BDF00933147 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AA6EE4278E6BDF00933147 /* Todo.swift */; };
@@ -119,9 +123,11 @@
 		C217CF9F278D91C200F05543 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		C2258573279A5C1800085433 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		C2258576279A637300085433 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		C2258579279A8CDF00085433 /* NewTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskView.swift; sourceTree = "<group>"; };
 		C232E3D3279035E100810824 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C232E3D5279035E500810824 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C232E3D62790372400810824 /* Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
+		C25C3533279A9C6E00409300 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		C2AA6EE1278E68B700933147 /* Pallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pallet.swift; sourceTree = "<group>"; };
 		C2AA6EE4278E6BDF00933147 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		C2AA6EE7278E6EE200933147 /* TodoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoService.swift; sourceTree = "<group>"; };
@@ -222,6 +228,7 @@
 				C2BDE1C52799420200320618 /* TaskCell.swift */,
 				C2258573279A5C1800085433 /* TaskList.swift */,
 				C2258576279A637300085433 /* SearchBar.swift */,
+				C25C3533279A9C6E00409300 /* ModalView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -340,6 +347,7 @@
 				C2BDE1B5279806B000320618 /* DetailView.swift */,
 				C2BDE1BB2798F67700320618 /* Home.swift */,
 				C2BDE1CB279A58EF00320618 /* SearchTaskView.swift */,
+				C2258579279A8CDF00085433 /* NewTaskView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -518,10 +526,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C25C3534279A9C6E00409300 /* ModalView.swift in Sources */,
 				C232E3D72790372400810824 /* Localize.swift in Sources */,
 				C2AA6EE5278E6BDF00933147 /* Todo.swift in Sources */,
 				C2AA6EEB278E6FD900933147 /* TodoMO+Extension.swift in Sources */,
 				C2BDE1C32798FBDA00320618 /* MyDatePicker.swift in Sources */,
+				C225857A279A8CDF00085433 /* NewTaskView.swift in Sources */,
 				C2AA6EF8278EE25600933147 /* TodoList.swift in Sources */,
 				C2BDE1B02796CA6D00320618 /* DatePickView.swift in Sources */,
 				C2258577279A637300085433 /* SearchBar.swift in Sources */,
@@ -558,6 +568,7 @@
 			files = (
 				C217CFA1278D91C200F05543 /* InputView.swift in Sources */,
 				C2AA6EF0278EBBA700933147 /* StrikethroughTextModifier.swift in Sources */,
+				C225857B279A8CDF00085433 /* NewTaskView.swift in Sources */,
 				C2AA6EE3278E68B700933147 /* Pallet.swift in Sources */,
 				C2030092278593BE00F04B27 /* ToDoStore.swift in Sources */,
 				C2BDE1AA2796B00D00320618 /* InputToolBar.swift in Sources */,
@@ -573,6 +584,7 @@
 				C2BDE1CA279A560200320618 /* SharedDataFormatter.swift in Sources */,
 				C2BDE1BD2798F67700320618 /* Home.swift in Sources */,
 				C2AA6EF6278ECA2300933147 /* Extensions.swift in Sources */,
+				C25C3535279A9C6E00409300 /* ModalView.swift in Sources */,
 				C2258578279A637300085433 /* SearchBar.swift in Sources */,
 				C2AA6EF9278EE25600933147 /* TodoList.swift in Sources */,
 				C2D24719278571AC00B7264F /* TODOApp.swift in Sources */,

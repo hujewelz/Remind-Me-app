@@ -9,6 +9,8 @@ import SwiftUI
 
 struct Home: View {
     @State private var isSearch = false
+    @State private var isNewTask = false
+    
     var body: some View {
         VStack(spacing: 0) {
             headerView()
@@ -19,6 +21,9 @@ struct Home: View {
             if isSearch {
                 SearchTaskView(isSearchActivated: $isSearch)
             }
+        }
+        .sheet(isPresented: $isNewTask) {
+            NewTaskView()
         }
     }
 
@@ -44,7 +49,7 @@ struct Home: View {
                 .padding(8)
                 
                 Button {
-                    
+                    isNewTask.toggle()
                 } label: {
                     Image(systemName: "plus")
                         .font(.title3.weight(.semibold))
