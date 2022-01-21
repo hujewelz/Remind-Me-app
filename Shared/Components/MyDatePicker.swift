@@ -14,10 +14,16 @@ struct MyDatePicker: View {
         case month
     }
     
-    let colums = Array(repeating: GridItem(.flexible()), count: 7)
+    @Binding var selection: Date
+    
+    private let colums = Array(repeating: GridItem(.flexible()), count: 7)
     @StateObject private var store = DatePickerStore()
     
     @Namespace private var animation
+    
+    init(_ selection: Binding<Date>) {
+        _selection = selection
+    }
     
     private func currentDateColor(_ date: Date) -> Color {
         store.isInSameDay(date) ? Color.white : Color.primary
@@ -54,6 +60,7 @@ struct MyDatePicker: View {
                                 store.changeDisplayStyle()
                             } else {
                                 store.currentDate = date.date
+                                selection = date.date
                             }
                         }
                     }
@@ -65,6 +72,9 @@ struct MyDatePicker: View {
         .padding(.horizontal)
         .padding(.bottom)
         .background(Pallet.systemBackground)
+        .onAppear {
+            store.loadData(selection)
+        }
     }
     
     private func currentDayView() -> some View {
@@ -94,10 +104,9 @@ struct MyDatePicker: View {
 
 struct MyDatePicker_Previews: PreviewProvider {
     static var previews: some View {
-        MyDatePicker()
+        MyDatePicker(.constant(Date().advanced(by: 24 * 3600)))
     }
 }
-
 
 @MainActor
 final class DatePickerStore: ObservableObject {
@@ -109,45 +118,39 @@ final class DatePickerStore: ObservableObject {
     
     let weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
-    init() {
-       loadDateOfCurrentWeek()
+    func loadData(_ date: Date) {
+        currentDate = date
+        changeDisplayStyle()
     }
     
     func changeDisplayStyle() {
         switch displayStyle {
         case .month:
-            displayStyle = .week
-            loadDateOfCurrentWeek()
-        case .week:
-            displayStyle = .month
             loadDateOfCurrentMonth()
+            displayStyle = .week
+        case .week:
+            loadDateOfCurrentWeek()
+            displayStyle = .month
         }
     }
     
     private func loadDateOfCurrentMonth() {
-        let dates = dateOfMonth(Date())
-//        withAnimation {
-            datesToShow = dates
-//        }
+        datesToShow = dateOfMonth(Date())
     }
     
     private func loadDateOfCurrentWeek() {
         let calendar = Calendar.current
         
-        let now = currentDate
-        let currentMonth = calendar.component(.month, from: now)
-        guard let beginOfWeek = calendar.dateInterval(of: .weekOfMonth, for: now)?.start else { return }
+        let currentMonth = calendar.component(.month, from: currentDate)
+        guard let beginOfWeek = calendar.dateInterval(of: .weekOfMonth, for: currentDate)?.start else { return }
         
-        let dates = (0..<7).compactMap { i -> DisplayibleDate? in
+        datesToShow = (0..<7).compactMap { i -> DisplayibleDate? in
             if let date = calendar.date(byAdding: .day, value: i, to: beginOfWeek) {
                 let month = calendar.component(.month, from: date)
                 return DisplayibleDate(date: date, didShow: month == currentMonth)
             }
             return nil
         }
-//        withAnimation {
-            datesToShow = dates
-//        }
     }
     
     func isToday(_ date: Date) -> Bool {
@@ -195,7 +198,7 @@ struct DisplayibleDate: CustomDebugStringConvertible, Identifiable {
     let didShow: Bool
     
     var day: String {
-        dayDateFormatter().string(from: date)
+        SharedDateFormatter.dayDateFormatter.string(from: date)
     }
     
     init(date: Date, didShow: Bool = true) {
@@ -207,11 +210,4 @@ struct DisplayibleDate: CustomDebugStringConvertible, Identifiable {
     var debugDescription: String {
         "DisplayibleDate(date: \(date.formatted(date: .abbreviated, time: .omitted)) , showed: \(didShow))"
     }
-}
-
-
-func dayDateFormatter() -> DateFormatter {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "d"
-    return formatter
 }

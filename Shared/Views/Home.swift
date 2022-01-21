@@ -15,12 +15,15 @@ struct Home: View {
             headerView()
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 16) {
-                    MyDatePicker()
+                    MyDatePicker($date)
                     taskView()
                 }
             }
         }
         .background(Pallet.systemBackground)
+        .onChange(of: date) { newValue in
+            print("date changed: ", newValue)
+        }
     }
     
     private func taskView() -> some View {

@@ -50,6 +50,8 @@
 		C2BDE1C42798FBDA00320618 /* MyDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1C22798FBDA00320618 /* MyDatePicker.swift */; };
 		C2BDE1C62799420200320618 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1C52799420200320618 /* TaskCell.swift */; };
 		C2BDE1C72799420200320618 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1C52799420200320618 /* TaskCell.swift */; };
+		C2BDE1C9279A560200320618 /* SharedDataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1C8279A560200320618 /* SharedDataFormatter.swift */; };
+		C2BDE1CA279A560200320618 /* SharedDataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1C8279A560200320618 /* SharedDataFormatter.swift */; };
 		C2D24707278571AB00B7264F /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D24706278571AB00B7264F /* Tests_iOS.swift */; };
 		C2D24709278571AB00B7264F /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D24708278571AB00B7264F /* Tests_iOSLaunchTests.swift */; };
 		C2D24713278571AC00B7264F /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D24712278571AC00B7264F /* Tests_macOS.swift */; };
@@ -129,6 +131,7 @@
 		C2BDE1BF2798F99000320618 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		C2BDE1C22798FBDA00320618 /* MyDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDatePicker.swift; sourceTree = "<group>"; };
 		C2BDE1C52799420200320618 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		C2BDE1C8279A560200320618 /* SharedDataFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataFormatter.swift; sourceTree = "<group>"; };
 		C2D246EC278571A900B7264F /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		C2D246ED278571A900B7264F /* TODOApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODOApp.swift; sourceTree = "<group>"; };
 		C2D246EE278571A900B7264F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -219,6 +222,7 @@
 				C2AA6EF1278EC5C000933147 /* Const.swift */,
 				C2AA6EF4278ECA2300933147 /* Extensions.swift */,
 				C232E3D62790372400810824 /* Localize.swift */,
+				C2BDE1C8279A560200320618 /* SharedDataFormatter.swift */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -511,6 +515,7 @@
 				C2BDE1B6279806B100320618 /* DetailView.swift in Sources */,
 				C2BDE1C62799420200320618 /* TaskCell.swift in Sources */,
 				C217CFA0278D91C200F05543 /* InputView.swift in Sources */,
+				C2BDE1C9279A560200320618 /* SharedDataFormatter.swift in Sources */,
 				C20300A52785A0A300F04B27 /* Todo_ext.intentdefinition in Sources */,
 				C2AA6EE8278E6EE200933147 /* TodoService.swift in Sources */,
 				C2AA6EEF278EBBA700933147 /* StrikethroughTextModifier.swift in Sources */,
@@ -549,6 +554,7 @@
 				C2BDE1B7279806B100320618 /* DetailView.swift in Sources */,
 				C2D24735278578FC00B7264F /* NewTodoView.swift in Sources */,
 				C2BDE1B427979F1A00320618 /* InputViewModel.swift in Sources */,
+				C2BDE1CA279A560200320618 /* SharedDataFormatter.swift in Sources */,
 				C2BDE1BD2798F67700320618 /* Home.swift in Sources */,
 				C2AA6EF6278ECA2300933147 /* Extensions.swift in Sources */,
 				C2AA6EF9278EE25600933147 /* TodoList.swift in Sources */,
