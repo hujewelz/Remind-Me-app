@@ -28,16 +28,20 @@ struct SearchBar: View {
                     .imageScale(.medium)
                     .foregroundColor(Color(uiColor: .systemGray))
                 
-                TextField(Localize.search.key, text: $text)
-                    .focused($isInputActive)
-                    .frame(height: 32)
-                    .lExpanded()
-                    .submitLabel(.search)
-                    .onSubmit {
-                        onSearch?(text)
-                    }
+                HStack(spacing: 0) {
+                    TextField(Localize.search.key, text: $text)
+                        .focused($isInputActive)
+                        .frame(height: 32)
+                        .lExpanded()
+                        .submitLabel(.search)
+                        .onSubmit {
+                            onSearch?(text)
+                        }
+                    
+                    clearButton.opacity(text.isAbsoluteEmpty ? 0 : 1)
+                }
             }
-            .padding(.horizontal, 8)
+            .padding(.leading, 8)
             .frame(height: 36)
             .background(Color(uiColor: .systemGray6))
             .cornerRadius(8)
@@ -54,6 +58,16 @@ struct SearchBar: View {
         .onAppear {
             isInputActive = true
         }
+    }
+    
+    private var clearButton: some View {
+        Button {
+            text = ""
+        } label: {
+            Image(systemName: "multiply.circle.fill")
+                .foregroundColor(.secondary)
+        }
+        .frame(width: 30, height: 30)
     }
 }
 
