@@ -8,36 +8,20 @@
 import SwiftUI
 
 struct Home: View {
-    @State private var date = Date()
-    
+    @State private var isSearch = false
     var body: some View {
         VStack(spacing: 0) {
             headerView()
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 16) {
-                    MyDatePicker($date)
-                    taskView()
-                }
-            }
+            TaskList(showsDataPicker: true)
         }
         .background(Pallet.systemBackground)
-        .onChange(of: date) { newValue in
-            print("date changed: ", newValue)
-        }
-    }
-    
-    private func taskView() -> some View {
-        LazyVStack(spacing: 12) {
-            ForEach((0...6), id: \.self) { _ in
-                TaskCell()
-                    .padding(.horizontal)
+        .overlay {
+            if isSearch {
+                SearchTaskView(isSearchActivated: $isSearch)
             }
         }
-        .background(Pallet.systemBackground)
     }
-    
-    func delete(_ indexSet: IndexSet) {}
-    
+
     private func headerView() -> some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 8) {
@@ -50,7 +34,9 @@ struct Home: View {
             // Navigation bar
             HStack {
                 Button {
-                    
+                    withAnimation {
+                        isSearch = true
+                    }
                 } label: {
                     Image(systemName: "magnifyingglass")
                         .font(.title2)

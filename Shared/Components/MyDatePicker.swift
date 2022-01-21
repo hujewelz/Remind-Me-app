@@ -70,7 +70,7 @@ struct MyDatePicker: View {
             }
         }
         .padding(.horizontal)
-        .padding(.bottom)
+//        .padding(.bottom)
         .background(Pallet.systemBackground)
         .onAppear {
             store.loadData(selection)

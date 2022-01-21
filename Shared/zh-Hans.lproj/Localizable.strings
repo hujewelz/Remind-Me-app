@@ -12,3 +12,9 @@
 "today" = "今天";
 "tomorrow" = "明天";
 "nextWeek" = "NextWeek";
+
+
+// Search Bar
+"search" = "搜索";
+
+"cancel" = "取消";

@@ -12,3 +12,7 @@
 "today" = "Today";
 "tomorrow" = "tomorrow";
 "nextWeek" = "NextWeek";
+
+// Search Bar
+"search" = "Search";
+"cancel" = "Cancel";
