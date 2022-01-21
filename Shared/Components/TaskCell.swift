@@ -31,7 +31,6 @@ struct TaskCell: View {
                         .font(.system(size: 8))
                 }
                 
-//                Label("1 of 4", systemImage: "list.bullet.circle")
                 Text("Tasks • 1 of 4")
                     .font(.footnote)
             }
@@ -39,20 +38,23 @@ struct TaskCell: View {
             Spacer()
             
             VStack(alignment: .trailing) {
-                Button {
-                    
-                } label: {
-                    Button {
-                        
-                    } label: {
+                Pallet.tertiary.opacity(0.1)
+                    .frame(width: 28, height: 28)
+                    .background()
+                    .clipShape(Circle())
+                    .overlay {
                         Image(systemName: "ellipsis")
                             .foregroundColor(Pallet.iconPrimary)
                     }
-                    .frame(width: 28, height: 28)
-                    .background(Pallet.tertiary.opacity(0.1))
-                    .clipShape(Circle())
-                }
-                
+                    .contextMenu {
+                        Section {
+                            Button("♥️ - Hearts", action: selectHearts)
+                            Button("♣️ - Clubs", action: selectClubs)
+                        }
+                        Button("♠️ - Spades", action: selectSpades)
+                        Button("♦️ - Diamonds", action: selectDiamonds)
+                    }
+                Spacer()
                 // Tag
                 Text("Meeting")
                     .font(.footnote.bold())
@@ -60,15 +62,19 @@ struct TaskCell: View {
                     .padding(.vertical, 4)
                     .background(color.opacity(0.15))
                     .clipShape(Capsule())
-                
             }
-            
         }
         .foregroundColor(Pallet.secondary)
         .padding()
         .background(color.opacity(0.1))
         .cornerRadius(12)
     }
+    
+    func selectHearts() {}
+    func selectClubs() {}
+    func selectSpades() {}
+    func selectDiamonds() {}
+    
 }
 
 struct TaskCell_Previews: PreviewProvider {

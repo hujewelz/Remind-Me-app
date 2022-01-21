@@ -37,7 +37,7 @@ struct Home: View {
     
     private func headerView() -> some View {
         HStack(alignment: .top) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text("Today")
                     .font(.largeTitle)
                 Text(Date().formatted(date: .abbreviated, time: .omitted))
@@ -66,8 +66,7 @@ struct Home: View {
             }
             .frame(height: 44)
         }
-        .padding(.horizontal)
-        .padding(.bottom, 8)
+        .padding([.horizontal, .bottom])
         .background(Pallet.systemBackground)
     }
 }
