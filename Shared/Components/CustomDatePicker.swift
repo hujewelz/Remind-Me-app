@@ -112,7 +112,13 @@ final class DatePickerStore: ObservableObject {
     
     @Published var datesToShow: [DisplayibleDate] = []
     @Published var currentDate = Date()
-    @Published var currentMonth = 0
+    @Published var currentMonth = 0 {
+        didSet {
+            if currentMonth != oldValue {
+                loadDateOfCurrentMonth(shouldUpdateCache: true)
+            }
+        }
+    }
     
     var displayStyle = CustomDatePicker.DisplayStyle.week
     
@@ -134,13 +140,19 @@ final class DatePickerStore: ObservableObject {
         }
     }
     
-    private func loadDateOfCurrentMonth() {
-        datesToShow = dateOfMonth(Date())
+    private var cachedDatesOfMonth: [DisplayibleDate]!
+    private func loadDateOfCurrentMonth(shouldUpdateCache: Bool = false) {
+        // if `currentMonth` is never changed, we don't need to load dates every time
+        if cachedDatesOfMonth == nil || shouldUpdateCache {
+            cachedDatesOfMonth = dateOfMonth(currentMonth)
+        }
+        // Update `id` to render every Day element to fix animation. this isn't necessary if no animation
+        datesToShow = cachedDatesOfMonth.map { $0.updated(withId: UUID()) }
     }
     
+
     private func loadDateOfCurrentWeek() {
         let calendar = Calendar.current
-        
         let currentMonth = calendar.component(.month, from: currentDate)
         guard let beginOfWeek = calendar.dateInterval(of: .weekOfMonth, for: currentDate)?.start else { return }
         
@@ -162,10 +174,9 @@ final class DatePickerStore: ObservableObject {
         Calendar.current.isDate(date, inSameDayAs: currentDate)
     }
     
-    
-    func dateOfMonth(_ date: Date) -> [DisplayibleDate] {
+    func dateOfMonth(_ month: Int) -> [DisplayibleDate] {
         let calendar = Calendar.current
-        var dateValues = calendar.allDates(of: currentMonth).compactMap { date -> DisplayibleDate in
+        var dateValues = calendar.allDates(of: month).compactMap { date -> DisplayibleDate in
             let day = calendar.component(.day, from: date)
             return DisplayibleDate(date: date, day: day)
         }
@@ -194,14 +205,23 @@ struct DisplayibleDate: CustomDebugStringConvertible, Identifiable {
     let day: Int
     let didShow: Bool
     
-    init(date: Date, day: Int, didShow: Bool = true) {
-        self.id = UUID()
+    init(id: UUID, date: Date, day: Int, didShow: Bool = true) {
+        self.id = id
         self.date = date
         self.day = day
         self.didShow = didShow
     }
     
+    init(date: Date, day: Int, didShow: Bool = true) {
+        self.init(id: UUID(), date: date, day: day, didShow: didShow)
+    }
+    
     var debugDescription: String {
         "DisplayibleDate(id: \(id), date: \(date.formatted(date: .abbreviated, time: .omitted)) , showed: \(didShow))"
     }
+    
+    func updated(withId id: UUID) -> DisplayibleDate {
+        DisplayibleDate(id: id, date: date, day: day, didShow: didShow)
+    }
 }
+
