@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		509297A9279CF88D00C2C7C9 /* Calendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509297A8279CF88D00C2C7C9 /* Calendar+Extensions.swift */; };
+		509297AA279CF88D00C2C7C9 /* Calendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509297A8279CF88D00C2C7C9 /* Calendar+Extensions.swift */; };
 		C2030091278593BE00F04B27 /* ToDoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2030090278593BD00F04B27 /* ToDoStore.swift */; };
 		C2030092278593BE00F04B27 /* ToDoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2030090278593BD00F04B27 /* ToDoStore.swift */; };
 		C20300A52785A0A300F04B27 /* Todo_ext.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C20300A02785A0A100F04B27 /* Todo_ext.intentdefinition */; };
@@ -60,8 +62,8 @@
 		C2BDE1BD2798F67700320618 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1BB2798F67700320618 /* Home.swift */; };
 		C2BDE1C02798F99100320618 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1BF2798F99000320618 /* View+Extensions.swift */; };
 		C2BDE1C12798F99100320618 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1BF2798F99000320618 /* View+Extensions.swift */; };
-		C2BDE1C32798FBDA00320618 /* MyDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1C22798FBDA00320618 /* MyDatePicker.swift */; };
-		C2BDE1C42798FBDA00320618 /* MyDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1C22798FBDA00320618 /* MyDatePicker.swift */; };
+		C2BDE1C32798FBDA00320618 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1C22798FBDA00320618 /* CustomDatePicker.swift */; };
+		C2BDE1C42798FBDA00320618 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1C22798FBDA00320618 /* CustomDatePicker.swift */; };
 		C2BDE1C62799420200320618 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1C52799420200320618 /* TaskCell.swift */; };
 		C2BDE1C72799420200320618 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1C52799420200320618 /* TaskCell.swift */; };
 		C2BDE1C9279A560200320618 /* SharedDataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BDE1C8279A560200320618 /* SharedDataFormatter.swift */; };
@@ -119,6 +121,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		509297A8279CF88D00C2C7C9 /* Calendar+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Extensions.swift"; sourceTree = "<group>"; };
 		C2030090278593BD00F04B27 /* ToDoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoStore.swift; sourceTree = "<group>"; };
 		C20300992785A0A100F04B27 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C203009B2785A0A100F04B27 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -152,7 +155,7 @@
 		C2BDE1B827980D4100320618 /* SubTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTaskCell.swift; sourceTree = "<group>"; };
 		C2BDE1BB2798F67700320618 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		C2BDE1BF2798F99000320618 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
-		C2BDE1C22798FBDA00320618 /* MyDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDatePicker.swift; sourceTree = "<group>"; };
+		C2BDE1C22798FBDA00320618 /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		C2BDE1C52799420200320618 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		C2BDE1C8279A560200320618 /* SharedDataFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataFormatter.swift; sourceTree = "<group>"; };
 		C2BDE1CB279A58EF00320618 /* SearchTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTaskView.swift; sourceTree = "<group>"; };
@@ -233,7 +236,7 @@
 				C217CF9F278D91C200F05543 /* InputView.swift */,
 				C2BDE1A82796B00D00320618 /* InputToolBar.swift */,
 				C2BDE1B827980D4100320618 /* SubTaskCell.swift */,
-				C2BDE1C22798FBDA00320618 /* MyDatePicker.swift */,
+				C2BDE1C22798FBDA00320618 /* CustomDatePicker.swift */,
 				C2BDE1C52799420200320618 /* TaskCell.swift */,
 				C2258573279A5C1800085433 /* TaskList.swift */,
 				C2258576279A637300085433 /* SearchBar.swift */,
@@ -275,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				C2BDE1BF2798F99000320618 /* View+Extensions.swift */,
+				509297A8279CF88D00C2C7C9 /* Calendar+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -542,7 +546,7 @@
 				C232E3D72790372400810824 /* Localize.swift in Sources */,
 				C2AA6EE5278E6BDF00933147 /* Todo.swift in Sources */,
 				C2AA6EEB278E6FD900933147 /* TodoMO+Extension.swift in Sources */,
-				C2BDE1C32798FBDA00320618 /* MyDatePicker.swift in Sources */,
+				C2BDE1C32798FBDA00320618 /* CustomDatePicker.swift in Sources */,
 				C225857A279A8CDF00085433 /* NewTaskView.swift in Sources */,
 				C2AA6EF8278EE25600933147 /* TodoList.swift in Sources */,
 				C2BDE1B02796CA6D00320618 /* DatePickView.swift in Sources */,
@@ -561,6 +565,7 @@
 				C2D247312785779000B7264F /* TodoCell.swift in Sources */,
 				C2D24716278571AC00B7264F /* TODO.xcdatamodeld in Sources */,
 				C2BDE1C02798F99100320618 /* View+Extensions.swift in Sources */,
+				509297A9279CF88D00C2C7C9 /* Calendar+Extensions.swift in Sources */,
 				C2BDE1B927980D4100320618 /* SubTaskCell.swift in Sources */,
 				C2BDE1CC279A58EF00320618 /* SearchTaskView.swift in Sources */,
 				C2AA6EE2278E68B700933147 /* Pallet.swift in Sources */,
@@ -586,6 +591,7 @@
 				C2AA6EF0278EBBA700933147 /* StrikethroughTextModifier.swift in Sources */,
 				C25C3538279AB23400409300 /* TagView.swift in Sources */,
 				C225857B279A8CDF00085433 /* NewTaskView.swift in Sources */,
+				509297AA279CF88D00C2C7C9 /* Calendar+Extensions.swift in Sources */,
 				C2AA6EE3278E68B700933147 /* Pallet.swift in Sources */,
 				C2030092278593BE00F04B27 /* ToDoStore.swift in Sources */,
 				C2BDE1AA2796B00D00320618 /* InputToolBar.swift in Sources */,
@@ -615,7 +621,7 @@
 				C2BDE1BA27980D4100320618 /* SubTaskCell.swift in Sources */,
 				C2BDE1C72799420200320618 /* TaskCell.swift in Sources */,
 				C2258575279A5C1800085433 /* TaskList.swift in Sources */,
-				C2BDE1C42798FBDA00320618 /* MyDatePicker.swift in Sources */,
+				C2BDE1C42798FBDA00320618 /* CustomDatePicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

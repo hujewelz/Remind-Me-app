@@ -1,5 +1,5 @@
 //
-//  MyDatePicker.swift
+//  CustomDatePicker.swift
 //  TODO
 //
 //  Created by huluobo on 2022/1/20.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MyDatePicker: View {
+struct CustomDatePicker: View {
     
     enum DisplayStyle {
         case week
@@ -34,7 +34,7 @@ struct MyDatePicker: View {
             Section {
                 ForEach(store.datesToShow) { date in
                     ZStack {
-                        Text(date.day)
+                        Text("\(date.day)")
                             .font(.system(size: 16))
                             .fontWeight(store.isToday(date.date) ? .semibold : .regular)
                             .opacity(date.didShow ? 1 : 0)
@@ -55,7 +55,7 @@ struct MyDatePicker: View {
                         }
                     )
                     .onTapGesture {
-                        withAnimation(.spring()) {
+                        withAnimation(.default) {
                             if store.isInSameDay(date.date) {
                                 store.changeDisplayStyle()
                             } else {
@@ -70,7 +70,6 @@ struct MyDatePicker: View {
             }
         }
         .padding(.horizontal)
-//        .padding(.bottom)
         .background(Pallet.systemBackground)
         .onAppear {
             store.loadData(selection)
@@ -104,7 +103,7 @@ struct MyDatePicker: View {
 
 struct MyDatePicker_Previews: PreviewProvider {
     static var previews: some View {
-        MyDatePicker(.constant(Date().advanced(by: 24 * 3600)))
+        CustomDatePicker(.constant(Date().advanced(by: 24 * 3600)))
     }
 }
 
@@ -113,23 +112,24 @@ final class DatePickerStore: ObservableObject {
     
     @Published var datesToShow: [DisplayibleDate] = []
     @Published var currentDate = Date()
+    @Published var currentMonth = 0
     
-    var displayStyle = MyDatePicker.DisplayStyle.week
+    var displayStyle = CustomDatePicker.DisplayStyle.week
     
     let weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
     func loadData(_ date: Date) {
         currentDate = date
-        changeDisplayStyle()
+        loadDateOfCurrentWeek()
     }
     
     func changeDisplayStyle() {
         switch displayStyle {
         case .month:
-            loadDateOfCurrentMonth()
+            loadDateOfCurrentWeek()
             displayStyle = .week
         case .week:
-            loadDateOfCurrentWeek()
+            loadDateOfCurrentMonth()
             displayStyle = .month
         }
     }
@@ -147,7 +147,8 @@ final class DatePickerStore: ObservableObject {
         datesToShow = (0..<7).compactMap { i -> DisplayibleDate? in
             if let date = calendar.date(byAdding: .day, value: i, to: beginOfWeek) {
                 let month = calendar.component(.month, from: date)
-                return DisplayibleDate(date: date, didShow: month == currentMonth)
+                let day = calendar.component(.day, from: date)
+                return DisplayibleDate(date: date, day: day, didShow: month == currentMonth)
             }
             return nil
         }
@@ -161,29 +162,24 @@ final class DatePickerStore: ObservableObject {
         Calendar.current.isDate(date, inSameDayAs: currentDate)
     }
     
+    
     func dateOfMonth(_ date: Date) -> [DisplayibleDate] {
-        var result: [DisplayibleDate] = []
-        let range = rangOfMonth(date)
-        
         let calendar = Calendar.current
-        let day = calendar.component(.day, from: date)
-        guard let beginOfThisMonth = calendar.date(byAdding: DateComponents(day: 1 - day), to: date) else { return [] }
-        
-        let weekdayOfBeginOfThisMonth = calendar.component(.weekday, from: beginOfThisMonth)
-        
-        // date of last month in one week
-        for i in stride(from: weekdayOfBeginOfThisMonth, to: 1, by: -1) {
-            let tmp = calendar.date(byAdding: DateComponents(day: 1-i), to: beginOfThisMonth)
-            result.append(DisplayibleDate(date: tmp ?? date, didShow: false))
+        var dateValues = calendar.allDates(of: currentMonth).compactMap { date -> DisplayibleDate in
+            let day = calendar.component(.day, from: date)
+            return DisplayibleDate(date: date, day: day)
         }
-        
-        // date of this month
-        for i in range {
-            if let date = calendar.date(byAdding: DateComponents(day: i-1), to: beginOfThisMonth) {
-                result.append(DisplayibleDate(date: date))
+        if let firstDay = dateValues.first?.date {
+            let weekday = calendar.component(.weekday, from: firstDay)
+            for i in 1..<weekday {
+                if let date = calendar.date(byAdding: .day, value: -i, to: firstDay) {
+                    let day = calendar.component(.day, from: date)
+                    dateValues.insert(DisplayibleDate(date: date, day: day, didShow: false), at: 0)
+                }
             }
         }
-        return result
+        
+        return dateValues
     }
     
     func rangOfMonth(_ date: Date) -> Range<Int> {
@@ -195,19 +191,17 @@ final class DatePickerStore: ObservableObject {
 struct DisplayibleDate: CustomDebugStringConvertible, Identifiable {
     let id: UUID
     let date: Date
+    let day: Int
     let didShow: Bool
     
-    var day: String {
-        SharedDateFormatter.dayDateFormatter.string(from: date)
-    }
-    
-    init(date: Date, didShow: Bool = true) {
-        id = UUID()
+    init(date: Date, day: Int, didShow: Bool = true) {
+        self.id = UUID()
         self.date = date
+        self.day = day
         self.didShow = didShow
     }
     
     var debugDescription: String {
-        "DisplayibleDate(date: \(date.formatted(date: .abbreviated, time: .omitted)) , showed: \(didShow))"
+        "DisplayibleDate(id: \(id), date: \(date.formatted(date: .abbreviated, time: .omitted)) , showed: \(didShow))"
     }
 }

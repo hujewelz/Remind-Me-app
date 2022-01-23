@@ -16,7 +16,7 @@ struct TaskList: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 8) {
                 if showsDataPicker {
-                    MyDatePicker($date)
+                    CustomDatePicker($date)
                 }
                 LazyVStack(spacing: 12) {
                     ForEach((0...6), id: \.self) { _ in
