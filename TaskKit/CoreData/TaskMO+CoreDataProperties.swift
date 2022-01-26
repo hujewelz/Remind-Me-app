@@ -25,6 +25,7 @@ extension TaskMO {
     @NSManaged public var createdAt: Date?
     @NSManaged public var title: String?
     @NSManaged public var subTasks: NSOrderedSet?
+    @NSManaged public var tag: TagMO?
 
 }
 
