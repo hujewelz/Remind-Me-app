@@ -5,6 +5,11 @@
         <attribute name="isCompleted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String"/>
     </entity>
+    <entity name="TagMO" representedClassName="TagMO" syncable="YES" codeGenerationType="class">
+        <attribute name="color" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String"/>
+    </entity>
     <entity name="TaskMO" representedClassName="TaskMO" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -15,9 +20,11 @@
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="subTasks" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="SubTaskMO"/>
+        <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TagMO"/>
     </entity>
     <elements>
-        <element name="TaskMO" positionX="-63" positionY="-18" width="128" height="178"/>
+        <element name="TaskMO" positionX="-63" positionY="-18" width="128" height="193"/>
         <element name="SubTaskMO" positionX="189.4219970703125" positionY="8.562286376953125" width="128" height="88"/>
+        <element name="TagMO" positionX="72" positionY="72" width="128" height="74"/>
     </elements>
 </model>

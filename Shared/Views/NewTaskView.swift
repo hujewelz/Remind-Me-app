@@ -9,7 +9,7 @@ import SwiftUI
 import TaskKit
 
 struct NewTaskView: View {
-    @State private var title = "Weekly Scrnm Meeting plan you day"
+    @State private var title = "Weekly Scrnm Meeting plan you day day day"
     @State private var startTime = Date()
     @State private var endTime = Date().advanced(by: 3600)
     @State private var isRepeated = false
@@ -19,6 +19,7 @@ struct NewTaskView: View {
     @State private var subTasks: [SubTask] = []
     @State private var isPresented = false
     
+    @State private var note = ""
     
     var body: some View {
         ModalView {
@@ -31,9 +32,15 @@ struct NewTaskView: View {
             VStack(alignment: .leading, spacing: 30) {
                 groupedContent(spacing: 8) {
                     TextEditor(text: $title)
+                        .lineLimit(2)
                         .focused($isInputActive)
-                        .font(.system(size: 24))
+                        .font(.system(size: 20, weight: .semibold))
+                        .frame(height: 60)
+                    
+                    TextView(text: $note, prompt: "Add note")
+                        .font(.body)
                         .frame(height: 80)
+                        
                     
                     subTasksView()
                 }
