@@ -6,17 +6,20 @@
 //
 
 import SwiftUI
+import TaskKit
 
 struct ChooseTagView: View {
     private let columns = [GridItem(.adaptive(minimum: 100))]
     
     @State private var text = ""
+    @State private var color = Tag.TagColor.allCases[0]
     
     var body: some View {
         ModalView {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 16) {
                     addNewTagView()
+                    ColorPallet(selection: $color)
                     LazyVGrid(columns: columns, spacing: 16) {
                         ForEach(0...7, id: \.self) { _ in
                             TagView()

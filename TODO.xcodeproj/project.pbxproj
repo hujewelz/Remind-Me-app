@@ -68,6 +68,8 @@
 		C2BE548527A11FED005A1AE8 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25C3539279AB25600409300 /* Tag.swift */; };
 		C2BE548727A128E1005A1AE8 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BE548627A128E1005A1AE8 /* TextView.swift */; };
 		C2BE548827A128E1005A1AE8 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BE548627A128E1005A1AE8 /* TextView.swift */; };
+		C2BE548A27A154E0005A1AE8 /* ColorPallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BE548927A154E0005A1AE8 /* ColorPallet.swift */; };
+		C2BE548B27A154E0005A1AE8 /* ColorPallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BE548927A154E0005A1AE8 /* ColorPallet.swift */; };
 		C2D24707278571AB00B7264F /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D24706278571AB00B7264F /* Tests_iOS.swift */; };
 		C2D24709278571AB00B7264F /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D24708278571AB00B7264F /* Tests_iOSLaunchTests.swift */; };
 		C2D24713278571AC00B7264F /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D24712278571AC00B7264F /* Tests_macOS.swift */; };
@@ -182,6 +184,7 @@
 		C2BE547C27A0ED70005A1AE8 /* TaskMO+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C2BE548327A0FC13005A1AE8 /* TaskServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskServer.swift; sourceTree = "<group>"; };
 		C2BE548627A128E1005A1AE8 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		C2BE548927A154E0005A1AE8 /* ColorPallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPallet.swift; sourceTree = "<group>"; };
 		C2D246EC278571A900B7264F /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		C2D246ED278571A900B7264F /* TODOApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODOApp.swift; sourceTree = "<group>"; };
 		C2D246EF278571A900B7264F /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -276,6 +279,7 @@
 				C25C3533279A9C6E00409300 /* ModalView.swift */,
 				C25C3536279AB23400409300 /* TagView.swift */,
 				C2BE548627A128E1005A1AE8 /* TextView.swift */,
+				C2BE548927A154E0005A1AE8 /* ColorPallet.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -711,6 +715,7 @@
 				C2BDE1C32798FBDA00320618 /* CustomDatePicker.swift in Sources */,
 				C225857A279A8CDF00085433 /* NewTaskView.swift in Sources */,
 				C2BDE1B02796CA6D00320618 /* DatePickView.swift in Sources */,
+				C2BE548A27A154E0005A1AE8 /* ColorPallet.swift in Sources */,
 				C2258577279A637300085433 /* SearchBar.swift in Sources */,
 				C2258574279A5C1800085433 /* TaskList.swift in Sources */,
 				C2BDE1C62799420200320618 /* TaskCell.swift in Sources */,
@@ -737,6 +742,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2AA6EF0278EBBA700933147 /* StrikethroughTextModifier.swift in Sources */,
+				C2BE548B27A154E0005A1AE8 /* ColorPallet.swift in Sources */,
 				C2BE548827A128E1005A1AE8 /* TextView.swift in Sources */,
 				C25C3538279AB23400409300 /* TagView.swift in Sources */,
 				C225857B279A8CDF00085433 /* NewTaskView.swift in Sources */,
