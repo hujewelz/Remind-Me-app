@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="TodoMO" representedClassName="TodoMO" syncable="YES" codeGenerationType="class">
+    <entity name="SubTaskMO" representedClassName="SubTaskMO" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isCompleted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="title" attributeType="String"/>
+    </entity>
+    <entity name="TaskMO" representedClassName="TaskMO" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String"/>
-        <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isCompleted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isRemind" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
+        <relationship name="subTasks" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="SubTaskMO"/>
     </entity>
     <elements>
-        <element name="TodoMO" positionX="-63" positionY="-18" width="128" height="149"/>
+        <element name="TaskMO" positionX="-63" positionY="-18" width="128" height="178"/>
+        <element name="SubTaskMO" positionX="189.4219970703125" positionY="8.562286376953125" width="128" height="88"/>
     </elements>
 </model>
