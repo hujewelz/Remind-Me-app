@@ -75,6 +75,15 @@ extension PersistenceController {
             return .failure(error)
         }
     }
+    
+    private func fetchMO<T: NSManagedObject>(_ type: T.Type, byId id: UUID) -> T? {
+        let predicate = NSPredicate(format: "id = %@", id as CVarArg)
+        let result = fetchFirst(type.self, predicate: predicate)
+        if case .success(let mo) = result {
+            return mo
+        }
+        return nil
+    }
 }
 
 extension PersistenceController: TaskServer {
@@ -101,8 +110,12 @@ extension PersistenceController: TaskServer {
         mo?.isCompleted = task.isCompleted
         mo?.isRemind = task.isRemind
         
+        
         task.subTasks.forEach { subTask in
             updateSubTaskWithoutSave(subTask, of: task)
+        }
+        if let tag = task.tag {
+            updateTag(tag, of: mo!)
         }
         
         save()
@@ -125,6 +138,25 @@ extension PersistenceController: TaskServer {
         mo.removeFromSubTasks(subTaskMO)
         save()
     }
+   
+    public func fetchTags() -> [Tag] {
+        let result = fetchMOs(TagMO.self)
+        if case .success(let mos) = result {
+            return mos.map(Tag.init(tagMO:))
+        }
+        return []
+    }
+    
+    public func updateTag(_ tag: Tag) {
+        var mo = fetchMO(TagMO.self, byId: tag.id)
+        if mo == nil {
+            mo = TagMO(context: container.viewContext)
+            mo?.id = tag.id
+        }
+        mo?.title = tag.text
+        mo?.color = tag.color.rawValue
+        save()
+    }
     
     private func updateSubTaskWithoutSave(_ subTask: SubTask, of task: Task) {
         guard let mo = fetchMO(TaskMO.self, byId: task.id) else { return }
@@ -143,13 +175,15 @@ extension PersistenceController: TaskServer {
         }
     }
     
-    private func fetchMO<T: NSManagedObject>(_ type: T.Type, byId id: UUID) -> T? {
-        let predicate = NSPredicate(format: "id = %@", id as CVarArg)
-        let result = fetchFirst(type.self, predicate: predicate)
-        if case .success(let mo) = result {
-            return mo
+    private func updateTag(_ tag: Tag, of taskMO: TaskMO) {
+        var mo = fetchMO(TagMO.self, byId: tag.id)
+        if mo == nil {
+            mo = TagMO(context: container.viewContext)
+            mo?.id = tag.id
         }
-        return nil
+        mo?.title = tag.text
+        mo?.color = tag.color.rawValue
+        taskMO.tag = mo
     }
 }
 

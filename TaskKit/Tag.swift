@@ -8,12 +8,12 @@
 import Foundation
 import SwiftUI
 
-struct Tag {
-    let id: UUID
-    let text: String
-    let color: TagColor
+public struct Tag {
+    public let id: UUID
+    public let text: String
+    public let color: TagColor
     
-    enum TagColor: String, Codable, CaseIterable {
+    public enum TagColor: String, Codable, CaseIterable {
         case red, orange, yellow, green, mint, teal, cyan, blue, indigo, purple, pink, brown, sysBg
     }
 }
@@ -22,7 +22,7 @@ extension Tag: Codable {}
 extension Tag: Identifiable {}
 
 extension Tag {
-    init(text: String, color: Color) {
+    public init(text: String, color: Color) {
         id = UUID()
         self.text = text
         self.color = TagColor(color: color)
@@ -34,7 +34,7 @@ extension Tag {
 }
 
 extension Tag.TagColor {
-    init(color: Color) {
+    public init(color: Color) {
         switch color {
         case .red:
             self = .red
@@ -65,7 +65,7 @@ extension Tag.TagColor {
         }
     }
     
-    var color: Color {
+    public var color: Color {
         switch self {
         case .red:
             return .red

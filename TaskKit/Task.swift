@@ -17,6 +17,7 @@ public struct Task: Codable, Identifiable {
     public var endAt: Date?
     public var content: String?
     public var subTasks: [SubTask] = []
+    public var tag: Tag?
 }
 
 public struct SubTask: Codable, Identifiable {
