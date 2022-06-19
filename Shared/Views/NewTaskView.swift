@@ -13,6 +13,7 @@ struct NewTaskView: View {
     @State private var startTime = Date()
     @State private var endTime = Date().advanced(by: 3600)
     @State private var isRepeated = false
+    @State private var isReminded = false
     @State private var enableLocation = false
     @FocusState private var isInputActive: Bool
     
@@ -29,50 +30,54 @@ struct NewTaskView: View {
     
     private var content: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 30) {
-                groupedContent(spacing: 8) {
+            VStack(alignment: .leading, spacing: 16) {
+                groupedContent {
                     TextEditor(text: $title)
                         .lineLimit(2)
                         .focused($isInputActive)
                         .font(.system(size: 20, weight: .semibold))
                         .frame(height: 60)
                     
-                    TextView(text: $note, prompt: "Add note")
-                        .font(.body)
-                        .frame(height: 80)
-                        
-                    
                     subTasksView()
                 }
                 
-                groupedContent(spacing: 30) {
-                    HStack(spacing: 60) {
-                        datePickerWithTitle("Start Time", date: $startTime)
-                        datePickerWithTitle("End Time", date: $endTime)
-                    }
+                groupedContent {
+                    datePickerWithTitle("Start Time", date: $startTime)
+                    datePickerWithTitle("End Time", date: $endTime)
                     
                     contentWithTitle("Choose a Tag") {
                         chooseTag()
                     }
                 }
                 
-                VStack {
-                    Divider()
-                    Toggle("Repeat", isOn: $isRepeated)
-                        .padding(.trailing, 4)
-                    Divider()
-                
-                    Toggle("Location", isOn: $enableLocation)
-                        .padding(.trailing, 4)
-                    Divider()
+                groupedContent {
+                    VStack {
+                        Divider()
+                        togglableRow(title: "Remind Me", isOn: $isReminded)
+                        togglableRow(title: "Repeat", isOn: $isRepeated)
+                        togglableRow(title: "Location", isOn: $enableLocation)
+                    }
+                    
+                    TextView(text: $note, prompt: "Add note")
+                        .font(.body)
+                        .frame(height: 88)
                 }
             }
             .padding()
-            .font(.system(size: 16))
+            .font(.system(size: 15))
         }
         .onTapGesture {
             resignFirstResonder()
         }
+    }
+    
+    private func togglableRow(title: String, isOn: Binding<Bool>) -> some View {
+        VStack {
+            Toggle(title, isOn: isOn)
+                .padding(.trailing, 4)
+            Divider()
+        }
+        .frame(height: 44)
     }
     
     private func subTasksView() -> some View {
@@ -88,7 +93,7 @@ struct NewTaskView: View {
                     .lExpanded()
                 }
                 .font(.body.weight(.regular))
-                .frame(height: 40)
+                .frame(height: 44)
             } else {
                 ForEach($subTasks) { $task in
                     SubTaskCell($task.title, isCompleted: $task.isCompleted) {
@@ -122,24 +127,29 @@ struct NewTaskView: View {
         }
     }
    
-    private func groupedContent<Content>(spacing: Double = 16, @ViewBuilder content: () -> Content) -> some View where Content: View {
+    private func groupedContent<Content>(spacing: Double = 16,
+                                         @ViewBuilder content: () -> Content
+    ) -> some View where Content: View {
         VStack(alignment: .leading, spacing: spacing) {
             content()
         }
     }
     
-    private func contentWithTitle<Content>(_ title: String, @ViewBuilder content: () -> Content) -> some View where Content: View {
+    private func contentWithTitle<Content>(_ title: String,
+                                           @ViewBuilder content: () -> Content
+    ) -> some View where Content: View {
         VStack(alignment: .leading) {
             Text(title)
                 .fontWeight(.regular)
                 .foregroundColor(Color.blue.opacity(0.8))
             content()
+                .frame(height: 44)
         }
     }
     
     private func datePickerWithTitle(_ title: String, date: Binding<Date>) -> some View {
         contentWithTitle(title) {
-            DatePicker("", selection: date, displayedComponents: [.hourAndMinute])
+            DatePicker("", selection: date, displayedComponents: [.date, .hourAndMinute])
                 .labelsHidden()
                 .font(.body.weight(.medium))
         }
@@ -154,7 +164,7 @@ struct NewTaskView: View {
     private func deleteSubTask(_ task: SubTask) {
         guard let index = subTasks.firstIndex(where: { $0.id == task.id }) else { return }
         
-        withAnimation {
+        let _ = withAnimation {
             subTasks.remove(at: index)
         }
     }
