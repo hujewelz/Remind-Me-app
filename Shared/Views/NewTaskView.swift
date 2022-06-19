@@ -51,11 +51,11 @@ struct NewTaskView: View {
                 }
                 
                 groupedContent {
-                    VStack {
+                    VStack(spacing: 0) {
                         Divider()
-                        togglableRow(title: "Remind Me", isOn: $isReminded)
-                        togglableRow(title: "Repeat", isOn: $isRepeated)
-                        togglableRow(title: "Location", isOn: $enableLocation)
+                        togglableRow(systemIcon: "bell", title: "Remind Me", isOn: $isReminded)
+                        togglableRow(systemIcon: "repeat", title: "Repeat", isOn: $isRepeated)
+                        togglableRow(systemIcon: "location", title: "Location", isOn: $enableLocation)
                     }
                     
                     TextView(text: $note, prompt: "Add note")
@@ -71,13 +71,15 @@ struct NewTaskView: View {
         }
     }
     
-    private func togglableRow(title: String, isOn: Binding<Bool>) -> some View {
-        VStack {
-            Toggle(title, isOn: isOn)
-                .padding(.trailing, 4)
+    private func togglableRow(systemIcon: String, title: String, isOn: Binding<Bool>) -> some View {
+        VStack(spacing: 0) {
+            HStack {
+                Image(systemName: systemIcon).font(Font.system(size: 16))
+                Toggle(title, isOn: isOn).padding(.trailing, 4)
+            }
+            .frame(height: 56)
             Divider()
         }
-        .frame(height: 44)
     }
     
     private func subTasksView() -> some View {
@@ -87,8 +89,8 @@ struct NewTaskView: View {
                     addEmptySubTask()
                 } label: {
                     HStack {
-                        Image(systemName: "plus")
-                        Text("Add Steps")
+                        Image(systemName: "plus").font(Font.system(size: 16))
+                        Text("Add Tasks")
                     }
                     .lExpanded()
                 }
@@ -114,12 +116,12 @@ struct NewTaskView: View {
                 isPresented.toggle()
             } label: {
                 Image(systemName: "plus")
-                    .imageScale(.medium)
+                    .font(Font.system(size: 16))
             }
             .padding(8)
             .background {
                 Circle()
-                    .stroke(Color.secondary, lineWidth: 1)
+                    .strokeBorder(Pallet.angluarGradient, lineWidth: 1)
             }
         }
         .sheet(isPresented: $isPresented) {
@@ -149,7 +151,7 @@ struct NewTaskView: View {
     
     private func datePickerWithTitle(_ title: String, date: Binding<Date>) -> some View {
         contentWithTitle(title) {
-            DatePicker("", selection: date, displayedComponents: [.date, .hourAndMinute])
+            DatePicker("", selection: date,in: startTime..., displayedComponents: [.date, .hourAndMinute])
                 .labelsHidden()
                 .font(.body.weight(.medium))
         }
