@@ -13,6 +13,7 @@ struct TextView: UIViewRepresentable {
     @Binding var text: String
     
     private var foregroundColor: Color?
+    private var backgroundColor: Color?
     private var placeholderColor: Color?
     private var font: Font?
     
@@ -28,6 +29,9 @@ struct TextView: UIViewRepresentable {
         textView.delegate = context.coordinator
         if let foregroundColor = foregroundColor {
             textView.textColor = UIColor(foregroundColor)
+        }
+        if let backgroundColor = backgroundColor {
+            textView.backgroundColor = UIColor(backgroundColor)
         }
         if let placeholderColor = placeholderColor {
             textView.placeholderColor = UIColor(placeholderColor)
@@ -106,6 +110,12 @@ extension TextView {
     func foregroundColor(_ color: Color) -> TextView {
         var view = self
         view.foregroundColor = color
+        return view
+    }
+    
+    func backgroundColor(_ color: Color) -> TextView {
+        var view = self
+        view.backgroundColor = color
         return view
     }
     
