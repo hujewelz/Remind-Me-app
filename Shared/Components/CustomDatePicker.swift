@@ -86,7 +86,7 @@ struct CustomDatePicker: View {
     }
     
     private func currentDayView() -> some View {
-        let colors: [Color] = [.orange, .red, .purple]
+        let colors: [Color] = [Pallet.purple, Pallet.deepBlue, Pallet.red]
         return HStack(spacing: 2) {
             ForEach(colors.indices, id: \.self) { i in
                 Circle()
