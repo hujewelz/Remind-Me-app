@@ -44,19 +44,37 @@ struct NewTaskView: View {
                 groupedContent {
                     datePickerWithTitle("Start Time", date: $startTime)
                     datePickerWithTitle("End Time", date: $endTime)
-                    
-//                    contentWithTitle("Choose a Tag") {
-//                        chooseTag()
-//                    }
                 }
                 
                 groupedContent {
                     VStack(spacing: 0) {
                         Divider()
-                        togglableRow(systemIcon: "bell", title: "Remind Me", isOn: $isReminded)
-                        togglableRow(systemIcon: "repeat", title: "Repeat", isOn: $isRepeated)
-                        togglableRow(systemIcon: "mappin.and.ellipse", title: "Location", isOn: $enableLocation)
-                        chooseTag()
+//                        togglableRow(systemIcon: "bell", title: "Remind Me", isOn: $isReminded)
+                        
+                        row(systemIcon: "bell", title: "Remind Me") {
+                            Text("10 minutes before").foregroundColor(Color.secondary)
+                        } trailing: {
+                            Text("None").foregroundColor(Color.secondary)
+                        }
+                        
+                        row(systemIcon: "repeat", title: "Repeat") {
+
+                        } trailing: {
+                            Text("None").foregroundColor(Color.secondary)
+                        }
+                        
+                        row(systemIcon: "mappin.and.ellipse", title: "Location") {
+                            
+                        } trailing: {
+                            Text("").foregroundColor(Color.secondary)
+                        }
+
+                        row(systemIcon: "tag", title: "Tag") {
+                            ChooseTagView()
+                        } trailing:  {
+                            TagView()
+                        }
+                        
                     }
                     
                     TextView(text: $note, prompt: "Add note")
@@ -67,23 +85,34 @@ struct NewTaskView: View {
             .padding()
             .font(.system(size: 15))
         }
+        .navigationTitle("New Task")
         .padding(.bottom, 30)
         .onTapGesture {
             resignFirstResonder()
         }
     }
     
-    private func row<Content: View>(systemIcon: String, title: String, @ViewBuilder trailing: () -> Content) -> some View {
-        VStack(spacing: 0) {
-            HStack {
-                Image(systemName: systemIcon).font(Font.system(size: 16)).frame(width: 32)
-                Text(title)
-                Spacer()
-                trailing()
+    private func row<Label: View, Destination: View>(systemIcon: String,
+                                                     title: String,
+                                                     @ViewBuilder destination: () -> Destination,
+                                                     @ViewBuilder trailing: () -> Label) -> some View {
+        
+        NavigationLink(destination: destination) {
+            VStack(spacing: 0) {
+                HStack {
+                    Image(systemName: systemIcon).font(Font.system(size: 16)).frame(width: 32)
+                    Text(title)
+                    Spacer()
+                    trailing()
+                    Image(systemName: "chevron.right")
+                        .font(.caption2.bold())
+                        .foregroundColor(Color.secondary)
+                }
+                .frame(height: 50)
+                Divider()
             }
-            .frame(height: 50)
-            Divider()
         }
+        .foregroundColor(Color.primary)
     }
     
     private func togglableRow(systemIcon: String, title: String, isOn: Binding<Bool>) -> some View {
@@ -121,19 +150,6 @@ struct NewTaskView: View {
                     .frame(height: 40)
                 }
             }
-        }
-    }
-    
-    private func chooseTag() -> some View {
-        row(systemIcon: "tag", title: "Tag") {
-            TagView()
-        }
-        .background(Pallet.systemBackground)
-        .onTapGesture {
-            isPresented = true
-        }
-        .sheet(isPresented: $isPresented) {
-            ChooseTagView()
         }
     }
    

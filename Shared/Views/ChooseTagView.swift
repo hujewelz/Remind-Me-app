@@ -15,20 +15,20 @@ struct ChooseTagView: View {
     @State private var color = Tag.TagColor.allCases[0]
     
     var body: some View {
-        ModalView {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 16) {
-                    addNewTagView()
-                    ColorPallet(selection: $color)
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(0...7, id: \.self) { _ in
-                            TagView()
-                        }
+//        ModalView {
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 16) {
+                addNewTagView()
+                ColorPallet(selection: $color)
+                LazyVGrid(columns: columns, spacing: 16) {
+                    ForEach(0...7, id: \.self) { _ in
+                        TagView()
                     }
                 }
-                .padding()
             }
+            .padding()
         }
+//        }
     }
     
     private func addNewTagView() -> some View {
