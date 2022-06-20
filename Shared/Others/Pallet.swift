@@ -34,7 +34,7 @@ enum Pallet {
                                                           startPoint: UnitPoint.leading,
                                                           endPoint: UnitPoint.trailing)
     
-    static let angluarGradient = AngularGradient(colors: Pallet.colorfull + [Pallet.red], center: .center, angle: .degrees(360))
+    static let angluarGradient = AngularGradient(colors: Pallet.colorfull, center: .center, angle: .degrees(360))
 }
 
 extension Color {

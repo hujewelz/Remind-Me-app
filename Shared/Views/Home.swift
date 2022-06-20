@@ -37,7 +37,7 @@ struct Home: View {
             }
             Spacer()
             // Navigation bar
-            HStack {
+            HStack(spacing: 0) {
                 Button {
                     withAnimation {
                         isSearch = true
@@ -47,6 +47,15 @@ struct Home: View {
                         .font(.title2)
                 }
                 .padding(8)
+                
+                Button {
+                    // TODO:
+                } label: {
+                    Image(systemName: "chart.pie")
+                        .font(.title2)
+                }
+                .padding(8)
+                .padding(.trailing, 4)
                 
                 Button {
                     isNewTask.toggle()

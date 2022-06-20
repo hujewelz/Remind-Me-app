@@ -11,10 +11,10 @@ struct TagView: View {
     
     var body: some View {
         Text("Meeting")
-            .font(.system(size: 15, weight: .medium))
+            .font(.system(size: 13, weight: .medium))
             .lineLimit(1)
-            .padding(.horizontal)
-            .padding(.vertical, 8)
+            .padding(.all, 4)
+            .padding(.horizontal, 6)
             .background(Color.orange.opacity(0.1))
             .clipShape(Capsule())
     }

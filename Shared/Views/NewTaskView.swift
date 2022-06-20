@@ -30,7 +30,7 @@ struct NewTaskView: View {
     
     private var content: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 20) {
                 groupedContent {
                     TextEditor(text: $title)
                         .lineLimit(2)
@@ -45,9 +45,9 @@ struct NewTaskView: View {
                     datePickerWithTitle("Start Time", date: $startTime)
                     datePickerWithTitle("End Time", date: $endTime)
                     
-                    contentWithTitle("Choose a Tag") {
-                        chooseTag()
-                    }
+//                    contentWithTitle("Choose a Tag") {
+//                        chooseTag()
+//                    }
                 }
                 
                 groupedContent {
@@ -55,7 +55,8 @@ struct NewTaskView: View {
                         Divider()
                         togglableRow(systemIcon: "bell", title: "Remind Me", isOn: $isReminded)
                         togglableRow(systemIcon: "repeat", title: "Repeat", isOn: $isRepeated)
-                        togglableRow(systemIcon: "location", title: "Location", isOn: $enableLocation)
+                        togglableRow(systemIcon: "mappin.and.ellipse", title: "Location", isOn: $enableLocation)
+                        chooseTag()
                     }
                     
                     TextView(text: $note, prompt: "Add note")
@@ -66,18 +67,32 @@ struct NewTaskView: View {
             .padding()
             .font(.system(size: 15))
         }
+        .padding(.bottom, 30)
         .onTapGesture {
             resignFirstResonder()
+        }
+    }
+    
+    private func row<Content: View>(systemIcon: String, title: String, @ViewBuilder trailing: () -> Content) -> some View {
+        VStack(spacing: 0) {
+            HStack {
+                Image(systemName: systemIcon).font(Font.system(size: 16)).frame(width: 32)
+                Text(title)
+                Spacer()
+                trailing()
+            }
+            .frame(height: 50)
+            Divider()
         }
     }
     
     private func togglableRow(systemIcon: String, title: String, isOn: Binding<Bool>) -> some View {
         VStack(spacing: 0) {
             HStack {
-                Image(systemName: systemIcon).font(Font.system(size: 16))
+                Image(systemName: systemIcon).font(Font.system(size: 16)).frame(width: 32)
                 Toggle(title, isOn: isOn).padding(.trailing, 4)
             }
-            .frame(height: 56)
+            .frame(height: 50)
             Divider()
         }
     }
@@ -110,19 +125,12 @@ struct NewTaskView: View {
     }
     
     private func chooseTag() -> some View {
-        HStack(spacing: 20) {
+        row(systemIcon: "tag", title: "Tag") {
             TagView()
-            Button {
-                isPresented.toggle()
-            } label: {
-                Image(systemName: "plus")
-                    .font(Font.system(size: 16))
-            }
-            .padding(8)
-            .background {
-                Circle()
-                    .strokeBorder(Pallet.angluarGradient, lineWidth: 1)
-            }
+        }
+        .background(Pallet.systemBackground)
+        .onTapGesture {
+            isPresented = true
         }
         .sheet(isPresented: $isPresented) {
             ChooseTagView()
@@ -140,7 +148,7 @@ struct NewTaskView: View {
     private func contentWithTitle<Content>(_ title: String,
                                            @ViewBuilder content: () -> Content
     ) -> some View where Content: View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 8) {
             Text(title)
                 .fontWeight(.regular)
                 .foregroundColor(Color.blue.opacity(0.8))

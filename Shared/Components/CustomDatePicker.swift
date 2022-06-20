@@ -25,7 +25,7 @@ struct CustomDatePicker: View {
         _selection = selection
     }
     
-    private func currentDateColor(_ date: Date) -> Color {
+    private func currentDateTextColor(_ date: Date) -> Color {
         store.isInSameDay(date) ? Color.white : Color.primary
     }
     
@@ -34,33 +34,28 @@ struct CustomDatePicker: View {
             Section {
                 ForEach(store.datesToShow) { date in
                     ZStack {
+                        if store.isInSameDay(date.date) {
+                            currentDateBg(date)
+                        }
                         Text("\(date.day)")
                             .font(.system(size: 16))
                             .fontWeight(store.isToday(date.date) ? .semibold : .regular)
                             .opacity(date.didShow ? 1 : 0)
+                        
                         if store.isToday(date.date) {
                             currentDayView()
                                 .offset(y: 14)
                         }
                     }
                     .frame(width: 32, height: 36)
-                    .foregroundColor(store.isInSameDay(date.date) ? Color.white : Color.primary)
-                    .background(
-                        ZStack(alignment: .bottom) {
-                            if store.isInSameDay(date.date) {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color.pink)
-                                    .matchedGeometryEffect(id: "BGANIMATION", in: animation)
-                            }
-                        }
-                    )
+                    .foregroundColor(currentDateTextColor(date.date))
                     .onTapGesture {
                         withAnimation(.default) {
                             if store.isInSameDay(date.date) {
                                 store.changeDisplayStyle()
                             } else {
-                                store.currentDate = date.date
                                 selection = date.date
+                                store.currentDate = date.date
                             }
                         }
                     }
@@ -74,6 +69,20 @@ struct CustomDatePicker: View {
         .onAppear {
             store.loadData(selection)
         }
+    }
+    
+    private func currentDateBg(_ date: DisplayibleDate) -> some View {
+        RoundedRectangle(cornerRadius: 10)
+            .fill(Color.pink)
+//            .overlay {
+//                Text("\(date.day)")
+//                    .font(.system(size: 16))
+//                    .fontWeight(.semibold)
+//                    .foregroundColor(Color.white)
+//                    .opacity(textAlpha)
+//                    .task(delayTextOpacity)
+//            }
+            .matchedGeometryEffect(id: "BGANIMATION", in: animation)
     }
     
     private func currentDayView() -> some View {
@@ -168,6 +177,10 @@ final class DatePickerStore: ObservableObject {
     
     func isToday(_ date: Date) -> Bool {
         Calendar.current.isDateInToday(date)
+    }
+    
+    func day(from date: Date) -> Int {
+        Calendar.current.component(.day, from: date)
     }
     
     func isInSameDay(_ date: Date) -> Bool {
