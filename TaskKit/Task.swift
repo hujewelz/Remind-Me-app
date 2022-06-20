@@ -56,6 +56,10 @@ extension Task {
             subTasks[index] = subTask
         }
     }
+    
+    public var countOfFinishedSubTasks: Int {
+        subTasks.filter { $0.isCompleted }.count
+    }
 }
 
 extension Task {

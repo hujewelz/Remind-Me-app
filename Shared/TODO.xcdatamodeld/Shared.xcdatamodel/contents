@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="SubTaskMO" representedClassName="SubTaskMO" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isCompleted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String"/>
     </entity>
-    <entity name="TagMO" representedClassName="TagMO" syncable="YES" codeGenerationType="class">
+    <entity name="TagMO" representedClassName="TagMO" syncable="YES">
         <attribute name="color" attributeType="String"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
@@ -23,8 +23,8 @@
         <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TagMO"/>
     </entity>
     <elements>
-        <element name="TaskMO" positionX="-63" positionY="-18" width="128" height="193"/>
         <element name="SubTaskMO" positionX="189.4219970703125" positionY="8.562286376953125" width="128" height="88"/>
         <element name="TagMO" positionX="72" positionY="72" width="128" height="74"/>
+        <element name="TaskMO" positionX="-63" positionY="-18" width="128" height="193"/>
     </elements>
 </model>
