@@ -17,6 +17,8 @@
 		50C54D2928601EB3004265EC /* TODO.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C2D246EB278571A900B7264F /* TODO.xcdatamodeld */; };
 		50C54D2C28601F60004265EC /* TagMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D2A28601F60004265EC /* TagMO+CoreDataClass.swift */; };
 		50C54D2D28601F60004265EC /* TagMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D2B28601F60004265EC /* TagMO+CoreDataProperties.swift */; };
+		50C54D2F2860A3BC004265EC /* RemindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D2E2860A3BC004265EC /* RemindView.swift */; };
+		50C54D302860A3BC004265EC /* RemindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D2E2860A3BC004265EC /* RemindView.swift */; };
 		C20300A52785A0A300F04B27 /* Todo_ext.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C20300A02785A0A100F04B27 /* Todo_ext.intentdefinition */; };
 		C2258574279A5C1800085433 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2258573279A5C1800085433 /* TaskList.swift */; };
 		C2258575279A5C1800085433 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2258573279A5C1800085433 /* TaskList.swift */; };
@@ -154,6 +156,7 @@
 		50C54D2528601148004265EC /* Reducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducer.swift; sourceTree = "<group>"; };
 		50C54D2A28601F60004265EC /* TagMO+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TagMO+CoreDataClass.swift"; sourceTree = "<group>"; };
 		50C54D2B28601F60004265EC /* TagMO+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TagMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		50C54D2E2860A3BC004265EC /* RemindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindView.swift; sourceTree = "<group>"; };
 		C20300992785A0A100F04B27 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C203009B2785A0A100F04B27 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C203009E2785A0A100F04B27 /* Todo_ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo_ext.swift; sourceTree = "<group>"; };
@@ -437,6 +440,7 @@
 				C2BDE1CB279A58EF00320618 /* SearchTaskView.swift */,
 				C2258579279A8CDF00085433 /* NewTaskView.swift */,
 				C25C353C279AB3E500409300 /* ChooseTagView.swift */,
+				50C54D2E2860A3BC004265EC /* RemindView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -728,6 +732,7 @@
 				C2BDE1C02798F99100320618 /* View+Extensions.swift in Sources */,
 				509297A9279CF88D00C2C7C9 /* Calendar+Extensions.swift in Sources */,
 				C2BDE1B927980D4100320618 /* SubTaskCell.swift in Sources */,
+				50C54D2F2860A3BC004265EC /* RemindView.swift in Sources */,
 				C2BDE1CC279A58EF00320618 /* SearchTaskView.swift in Sources */,
 				C2AA6EE2278E68B700933147 /* Pallet.swift in Sources */,
 				C2AA6EF5278ECA2300933147 /* Extensions.swift in Sources */,
@@ -756,6 +761,7 @@
 				C2BDE1BD2798F67700320618 /* Home.swift in Sources */,
 				C2AA6EF6278ECA2300933147 /* Extensions.swift in Sources */,
 				C25C3535279A9C6E00409300 /* ModalView.swift in Sources */,
+				50C54D302860A3BC004265EC /* RemindView.swift in Sources */,
 				C2258578279A637300085433 /* SearchBar.swift in Sources */,
 				C2D24719278571AC00B7264F /* TODOApp.swift in Sources */,
 				C232E3D82790372400810824 /* Localize.swift in Sources */,

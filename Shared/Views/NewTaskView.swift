@@ -22,6 +22,8 @@ struct NewTaskView: View {
     
     @State private var note = ""
     
+    @State private var remindTime: Times?
+    
     var body: some View {
         ModalView {
             content
@@ -49,12 +51,11 @@ struct NewTaskView: View {
                 groupedContent {
                     VStack(spacing: 0) {
                         Divider()
-//                        togglableRow(systemIcon: "bell", title: "Remind Me", isOn: $isReminded)
-                        
                         row(systemIcon: "bell", title: "Remind Me") {
-                            Text("10 minutes before").foregroundColor(Color.secondary)
+                            RemindView(time: $remindTime)
                         } trailing: {
-                            Text("None").foregroundColor(Color.secondary)
+                            Text(remindTime != nil ? remindTime!.title : "Never")
+                                .foregroundColor(Color.secondary)
                         }
                         
                         row(systemIcon: "repeat", title: "Repeat") {
