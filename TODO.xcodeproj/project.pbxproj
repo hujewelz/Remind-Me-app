@@ -11,6 +11,12 @@
 		509297AA279CF88D00C2C7C9 /* Calendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509297A8279CF88D00C2C7C9 /* Calendar+Extensions.swift */; };
 		509297DA279D165200C2C7C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 509297D9279D165200C2C7C9 /* GoogleService-Info.plist */; };
 		509297DB279D165200C2C7C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 509297D9279D165200C2C7C9 /* GoogleService-Info.plist */; };
+		50C54D24286008E5004265EC /* TaskStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D23286008E5004265EC /* TaskStore.swift */; };
+		50C54D2628601148004265EC /* Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D2528601148004265EC /* Reducer.swift */; };
+		50C54D2828601E35004265EC /* TODO.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C2D246EB278571A900B7264F /* TODO.xcdatamodeld */; };
+		50C54D2928601EB3004265EC /* TODO.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C2D246EB278571A900B7264F /* TODO.xcdatamodeld */; };
+		50C54D2C28601F60004265EC /* TagMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D2A28601F60004265EC /* TagMO+CoreDataClass.swift */; };
+		50C54D2D28601F60004265EC /* TagMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D2B28601F60004265EC /* TagMO+CoreDataProperties.swift */; };
 		C20300A52785A0A300F04B27 /* Todo_ext.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C20300A02785A0A100F04B27 /* Todo_ext.intentdefinition */; };
 		C2258574279A5C1800085433 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2258573279A5C1800085433 /* TaskList.swift */; };
 		C2258575279A5C1800085433 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2258573279A5C1800085433 /* TaskList.swift */; };
@@ -58,7 +64,6 @@
 		C2BE545427A0DCC0005A1AE8 /* TaskKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BE544127A0DCC0005A1AE8 /* TaskKit.framework */; };
 		C2BE545527A0DCC0005A1AE8 /* TaskKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C2BE544127A0DCC0005A1AE8 /* TaskKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C2BE545D27A0DE8D005A1AE8 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BE545C27A0DE8D005A1AE8 /* Task.swift */; };
-		C2BE547827A0ECFE005A1AE8 /* TODO.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C2D246EB278571A900B7264F /* TODO.xcdatamodeld */; };
 		C2BE547D27A0ED70005A1AE8 /* SubTaskMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BE547927A0ED70005A1AE8 /* SubTaskMO+CoreDataClass.swift */; };
 		C2BE547E27A0ED70005A1AE8 /* SubTaskMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BE547A27A0ED70005A1AE8 /* SubTaskMO+CoreDataProperties.swift */; };
 		C2BE547F27A0ED70005A1AE8 /* TaskMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BE547B27A0ED70005A1AE8 /* TaskMO+CoreDataClass.swift */; };
@@ -145,6 +150,10 @@
 /* Begin PBXFileReference section */
 		509297A8279CF88D00C2C7C9 /* Calendar+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Extensions.swift"; sourceTree = "<group>"; };
 		509297D9279D165200C2C7C9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		50C54D23286008E5004265EC /* TaskStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStore.swift; sourceTree = "<group>"; };
+		50C54D2528601148004265EC /* Reducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducer.swift; sourceTree = "<group>"; };
+		50C54D2A28601F60004265EC /* TagMO+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TagMO+CoreDataClass.swift"; sourceTree = "<group>"; };
+		50C54D2B28601F60004265EC /* TagMO+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TagMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C20300992785A0A100F04B27 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C203009B2785A0A100F04B27 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C203009E2785A0A100F04B27 /* Todo_ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo_ext.swift; sourceTree = "<group>"; };
@@ -304,13 +313,6 @@
 			path = ViewModifier;
 			sourceTree = "<group>";
 		};
-		C2BDE1AB2796C53100320618 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		C2BDE1BE2798F97800320618 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +331,8 @@
 				C2D246EF278571A900B7264F /* Persistence.swift */,
 				C2BE548327A0FC13005A1AE8 /* TaskServer.swift */,
 				C25C3539279AB25600409300 /* Tag.swift */,
+				50C54D23286008E5004265EC /* TaskStore.swift */,
+				50C54D2528601148004265EC /* Reducer.swift */,
 			);
 			path = TaskKit;
 			sourceTree = "<group>";
@@ -344,6 +348,8 @@
 		C2BE548227A0F10D005A1AE8 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				50C54D2A28601F60004265EC /* TagMO+CoreDataClass.swift */,
+				50C54D2B28601F60004265EC /* TagMO+CoreDataProperties.swift */,
 				C2BE547927A0ED70005A1AE8 /* SubTaskMO+CoreDataClass.swift */,
 				C2BE547A27A0ED70005A1AE8 /* SubTaskMO+CoreDataProperties.swift */,
 				C2BE547B27A0ED70005A1AE8 /* TaskMO+CoreDataClass.swift */,
@@ -371,16 +377,14 @@
 			isa = PBXGroup;
 			children = (
 				C2BDE1BE2798F97800320618 /* Extensions */,
-				C2BDE1AB2796C53100320618 /* ViewModel */,
 				C232E3CD2790334F00810824 /* Components */,
 				C2D2472E2785776600B7264F /* Views */,
-				C2D2472F2785776E00B7264F /* Model */,
 				C2AA6EED278EBB5400933147 /* ViewModifier */,
 				C2AA6EE0278E689C00933147 /* Others */,
 				C2D246ED278571A900B7264F /* TODOApp.swift */,
 				509297D9279D165200C2C7C9 /* GoogleService-Info.plist */,
-				C2D246F0278571AB00B7264F /* Assets.xcassets */,
 				C2D246EB278571A900B7264F /* TODO.xcdatamodeld */,
+				C2D246F0278571AB00B7264F /* Assets.xcassets */,
 				C232E3D4279035E100810824 /* Localizable.strings */,
 			);
 			path = Shared;
@@ -435,13 +439,6 @@
 				C25C353C279AB3E500409300 /* ChooseTagView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		C2D2472F2785776E00B7264F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -686,15 +683,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50C54D24286008E5004265EC /* TaskStore.swift in Sources */,
 				C2BE548027A0ED70005A1AE8 /* TaskMO+CoreDataProperties.swift in Sources */,
+				50C54D2D28601F60004265EC /* TagMO+CoreDataProperties.swift in Sources */,
 				C2BE547D27A0ED70005A1AE8 /* SubTaskMO+CoreDataClass.swift in Sources */,
+				50C54D2628601148004265EC /* Reducer.swift in Sources */,
 				C2BE547E27A0ED70005A1AE8 /* SubTaskMO+CoreDataProperties.swift in Sources */,
 				C2BE548127A0EE30005A1AE8 /* Persistence.swift in Sources */,
+				50C54D2828601E35004265EC /* TODO.xcdatamodeld in Sources */,
 				C2BE547F27A0ED70005A1AE8 /* TaskMO+CoreDataClass.swift in Sources */,
+				50C54D2C28601F60004265EC /* TagMO+CoreDataClass.swift in Sources */,
 				C2BE548427A0FC13005A1AE8 /* TaskServer.swift in Sources */,
 				C2BE548527A11FED005A1AE8 /* Tag.swift in Sources */,
 				C2BE545D27A0DE8D005A1AE8 /* Task.swift in Sources */,
-				C2BE547827A0ECFE005A1AE8 /* TODO.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,6 +712,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C25C3534279A9C6E00409300 /* ModalView.swift in Sources */,
+				50C54D2928601EB3004265EC /* TODO.xcdatamodeld in Sources */,
 				C232E3D72790372400810824 /* Localize.swift in Sources */,
 				C2BDE1C32798FBDA00320618 /* CustomDatePicker.swift in Sources */,
 				C225857A279A8CDF00085433 /* NewTaskView.swift in Sources */,

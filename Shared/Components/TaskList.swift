@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import TaskKit
 
 struct TaskList: View {
     
     let showsDataPicker: Bool
     @State private var date = Date()
+    
+    @EnvironmentObject var store: TaskStore
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -19,14 +22,18 @@ struct TaskList: View {
                     CustomDatePicker($date)
                 }
                 LazyVStack(spacing: 12) {
-                    ForEach((0...6), id: \.self) { _ in
-                        TaskCell()
+                    ForEach(store.state) { task in
+                        TaskCell(task: task)
                     }
                     .padding(.horizontal)
                 }
                 .background(Pallet.systemBackground)
                 .padding(.top)
             }
+        }
+        .task {
+            await store.dispatch(.fetch(date))
+            
         }
     }
 }

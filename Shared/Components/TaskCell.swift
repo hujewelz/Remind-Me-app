@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TaskKit
 
 struct TaskCell: View {
     var colors: [Color] = [.blue, .green, .pink, .cyan, .mint, .white, .gray]
@@ -14,15 +15,19 @@ struct TaskCell: View {
         colors[Int.random(in: 0...6)]
     }
     
+    let task: Task
+    
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("Weekly Scrun Meeting")
+                Text(task.title)
                     .font(.title3)
                     .foregroundColor(Color.primary)
                 
-                Text("Calendar app interaction build, it show hard 🤯")
-                    .lineLimit(2)
+                if let content = task.content {
+                    Text(content)
+                        .lineLimit(2)
+                }
                 
                 HStack {
                     Label("12:00 to 14:30 • 1.5 hours", systemImage: "clock.fill")
@@ -30,9 +35,11 @@ struct TaskCell: View {
                     Image(systemName: "bell.fill")
                         .font(.system(size: 8))
                 }
+                if !task.subTasks.isEmpty {
+                    Text("Tasks • \(task.countOfFinishedSubTasks) of \(task.subTasks.count)")
+                        .font(.footnote)
+                }
                 
-                Text("Tasks • 1 of 4")
-                    .font(.footnote)
             }
             
             Spacer()
@@ -77,8 +84,8 @@ struct TaskCell: View {
     
 }
 
-struct TaskCell_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskCell()
-    }
-}
+//struct TaskCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TaskCell()
+//    }
+//}

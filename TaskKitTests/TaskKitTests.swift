@@ -18,15 +18,46 @@ class TaskKitTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testStore() throws {
+        var store = TestStore(100);
+        XCTAssertEqual(store.state, 100)
+        
+        store.dispatch(.a)
+        XCTAssertEqual(store.state, 1)
+        
+        store.dispatch(.b)
+        XCTAssertEqual(store.state, 2)
+        
+        store.dispatch(.c(1000))
+        XCTAssertEqual(store.state, 1000)
+        
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    enum MyAction: Action {
+        case a, b
+        case c(Int)
+    }
+
+    struct TestStore: Store {
+        
+        var reducer: (Int?, MyAction) -> Int
+        
+        var state: Int?
+        
+        init(_ initState: Int?) {
+            state = initState
+            
+            reducer = { prevState, action in
+                switch action {
+                case .a:
+                    return 1
+                case .b:
+                    return 2
+                case .c(let val):
+                    return val
+                }
+            }
         }
     }
 

@@ -6,15 +6,19 @@
 //
 
 import SwiftUI
+import TaskKit
 
 struct Home: View {
     @State private var isSearch = false
     @State private var isNewTask = false
     
+    @ObservedObject var store: TaskStore
+    
     var body: some View {
         VStack(spacing: 0) {
             headerView()
             TaskList(showsDataPicker: true)
+                .environmentObject(store)
         }
         .background(Pallet.systemBackground)
         .overlay {
@@ -76,6 +80,6 @@ struct Home: View {
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        Home()
+        Home(store: TaskStore(server: PersistenceController()))
     }
 }

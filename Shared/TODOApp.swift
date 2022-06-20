@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import TaskKit
 
 @main
 struct TODOApp: App {
     @Environment(\.scenePhase) var scenePhase
     
+    let persistenceController = PersistenceController()
+    
     var body: some Scene {
         WindowGroup {
-            Home()
-//            ContentView(store: ToDoStore(service: persistenceController))
-//                .environment(\.locale, .init(identifier: "zh"))
+            Home(store: TaskStore(server: persistenceController))
         }
         
     }

@@ -12,7 +12,7 @@ public struct PersistenceController {
 
     let container: NSPersistentContainer
 
-    init(inMemory: Bool = false) {
+    public init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "TODO")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
@@ -96,7 +96,7 @@ extension PersistenceController: TaskServer {
         return []
     }
     
-    public func updateTask(_ task: Task)  {
+    public func updateTask(_ task: Task) async  {
         var mo = fetchMO(TaskMO.self, byId: task.id)
         if mo == nil {
             mo = TaskMO(context: container.viewContext)

@@ -10,12 +10,12 @@ import Foundation
 public protocol TaskServer {
     func fetchTasks(of date: Date) async -> [Task]
     
-    func updateTask(_ task: Task)
+    func updateTask(_ task: Task) async
     
-    func deleteTask(_ task: Task)
+    func deleteTask(_ task: Task) async
     
-    func updateSubTask(_ subTask: SubTask, of task: Task)
+    func updateSubTask(_ subTask: SubTask, of task: Task) async
 
-    func deleteSubTask(_ subTask: SubTask, of task: Task) 
+    func deleteSubTask(_ subTask: SubTask, of task: Task) async
     
 }
