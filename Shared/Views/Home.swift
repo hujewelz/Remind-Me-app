@@ -17,17 +17,18 @@ struct Home: View {
     var body: some View {
         VStack(spacing: 0) {
             headerView()
-            TaskList(showsDataPicker: true)
-                .environmentObject(store)
+            TaskList(store: store, showsDataPicker: true)
         }
         .background(Pallet.systemBackground)
         .overlay {
             if isSearch {
                 SearchTaskView(isSearchActivated: $isSearch)
+                    .environmentObject(store)
             }
         }
         .sheet(isPresented: $isNewTask) {
-            NewTaskView()
+            NewTaskView(vm: NewTaskViewModel(task: nil))
+                .environmentObject(store)
         }
     }
 

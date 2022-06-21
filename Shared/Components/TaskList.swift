@@ -10,10 +10,11 @@ import TaskKit
 
 struct TaskList: View {
     
+    @ObservedObject var store: TaskStore
     let showsDataPicker: Bool
+    
     @State private var date = Date()
     
-    @EnvironmentObject var store: TaskStore
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -33,13 +34,12 @@ struct TaskList: View {
         }
         .task {
             await store.dispatch(.fetch(date))
-            
         }
     }
 }
 
-struct TaskList_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskList(showsDataPicker: true)
-    }
-}
+//struct TaskList_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TaskList(showsDataPicker: true)
+//    }
+//}

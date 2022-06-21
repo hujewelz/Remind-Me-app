@@ -8,24 +8,24 @@
 import SwiftUI
 import TaskKit
 
+
 struct NewTaskView: View {
-    @State private var title = "Weekly Scrnm Meeting plan you day day day"
-    @State private var startTime = Date()
-    @State private var endTime = Date().advanced(by: 3600)
-    @State private var isRepeated = false
-    @State private var isReminded = false
-    @State private var enableLocation = false
+
     @FocusState private var isInputActive: Bool
-    
-    @State private var subTasks: [SubTask] = []
-    @State private var isPresented = false
-    
-    @State private var note = ""
     
     @State private var remindTime: Times?
     
+    @EnvironmentObject var store: TaskStore
+    
+    @ObservedObject var vm: NewTaskViewModel
+    
     var body: some View {
-        ModalView {
+        ModalView(confirmEnabled: vm.task.title.isAbsoluteEmpty) {
+            Task {
+                await store.dispatch(.update(vm.task))
+            }
+            
+        } content: {
             content
         }
     }
@@ -33,44 +33,67 @@ struct NewTaskView: View {
     private var content: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 20) {
-                groupedContent {
-                    TextEditor(text: $title)
+                groupedContent(spacing: 8) {
+                    TextEditor(text: $vm.task.title)
                         .lineLimit(2)
                         .focused($isInputActive)
                         .font(.system(size: 20, weight: .semibold))
-                        .frame(height: 60)
+                        .frame(maxHeight: 60)
                     
                     subTasksView()
                 }
                 
                 groupedContent {
-                    datePickerWithTitle("Start Time", date: $startTime)
-                    datePickerWithTitle("End Time", date: $endTime)
+                    datePickerWithTitle("Start Time", date: $vm.task.startAt)
+                    datePickerWithTitle("End Time", date: $vm.task.endAt)
                 }
                 
                 groupedContent {
                     VStack(spacing: 0) {
-                        Divider()
-                        row(systemIcon: "bell", title: "Remind Me") {
+                        Divider().background(Pallet.tertiary.opacity(0.2))
+                        
+//                        row(systemIcon: "clock", title: "Start Time") {
+//                            DatePicker(
+//                                "",
+//                                selection: $vm.task.startAt,
+//                                in: vm.task.startAt...,
+//                                displayedComponents: [.date, .hourAndMinute]
+//                            )
+//                            .labelsHidden()
+//                            .font(.body.weight(.medium))
+//                        }
+//
+//                        row(systemIcon: "clock", title: "End Time") {
+//                            DatePicker(
+//                                "",
+//                                selection: $vm.task.endAt,
+//                                in: vm.task.endAt...,
+//                                displayedComponents: [.date, .hourAndMinute]
+//                            )
+//                            .labelsHidden()
+//                            .font(.body.weight(.medium))
+//                        }
+                        
+                        tapableRow(systemIcon: "bell", title: "Remind Me") {
                             RemindView(time: $remindTime)
                         } trailing: {
                             Text(remindTime != nil ? remindTime!.title : "Never")
                                 .foregroundColor(Color.secondary)
                         }
                         
-                        row(systemIcon: "repeat", title: "Repeat") {
+                        tapableRow(systemIcon: "repeat", title: "Repeat") {
 
                         } trailing: {
                             Text("None").foregroundColor(Color.secondary)
                         }
                         
-                        row(systemIcon: "mappin.and.ellipse", title: "Location") {
-                            
+                        tapableRow(systemIcon: "mappin.and.ellipse", title: "Location") {
+                            LocationView()
                         } trailing: {
                             Text("").foregroundColor(Color.secondary)
                         }
 
-                        row(systemIcon: "tag", title: "Tag") {
+                        tapableRow(systemIcon: "tag", title: "Tag") {
                             ChooseTagView()
                         } trailing:  {
                             TagView()
@@ -78,7 +101,7 @@ struct NewTaskView: View {
                         
                     }
                     
-                    TextView(text: $note, prompt: "Add note")
+                    TextView(text: $vm.task.content, prompt: "Add note")
                         .font(.body)
                         .frame(height: 88)
                 }
@@ -93,46 +116,46 @@ struct NewTaskView: View {
         }
     }
     
-    private func row<Label: View, Destination: View>(systemIcon: String,
+    private func tapableRow<Label: View, Destination: View>(systemIcon: String,
                                                      title: String,
                                                      @ViewBuilder destination: () -> Destination,
                                                      @ViewBuilder trailing: () -> Label) -> some View {
         
         NavigationLink(destination: destination) {
-            VStack(spacing: 0) {
-                HStack {
-                    Image(systemName: systemIcon).font(Font.system(size: 16)).frame(width: 32)
-                    Text(title)
-                    Spacer()
-                    trailing()
-                    Image(systemName: "chevron.right")
-                        .font(.caption2.bold())
-                        .foregroundColor(Color.secondary)
-                }
-                .frame(height: 50)
-                Divider()
+            row(systemIcon: systemIcon, title: title) {
+                trailing()
+                Image(systemName: "chevron.right")
+                    .font(.caption2.bold())
+                    .foregroundColor(Color.secondary)
             }
         }
-        .foregroundColor(Color.primary)
     }
     
-    private func togglableRow(systemIcon: String, title: String, isOn: Binding<Bool>) -> some View {
+    private func row<Label: View>(systemIcon: String,
+                                  title: String,
+                                  @ViewBuilder trailing: () -> Label) -> some View {
         VStack(spacing: 0) {
             HStack {
-                Image(systemName: systemIcon).font(Font.system(size: 16)).frame(width: 32)
-                Toggle(title, isOn: isOn).padding(.trailing, 4)
+                Image(systemName: systemIcon)
+                    .font(Font.system(size: 15).bold())
+                    .foregroundColor(Color.primary.opacity(0.65))
+                    .frame(width: 32)
+                Text(title)
+                Spacer()
+                trailing()
             }
             .frame(height: 50)
             Divider()
+                .background(Pallet.tertiary.opacity(0.2))
         }
+        .foregroundColor(Color.primary.opacity(0.8))
+        .background(Pallet.systemBackground)
     }
     
     private func subTasksView() -> some View {
         VStack(spacing: 0) {
-            if subTasks.isEmpty {
-                Button {
-                    addEmptySubTask()
-                } label: {
+            if vm.task.subTasks.isEmpty {
+                Button(action: vm.addEmptySubTask) {
                     HStack {
                         Image(systemName: "plus").font(Font.system(size: 16))
                         Text("Add Tasks")
@@ -142,11 +165,11 @@ struct NewTaskView: View {
                 .font(.body.weight(.regular))
                 .frame(height: 44)
             } else {
-                ForEach($subTasks) { $task in
+                ForEach($vm.task.subTasks) { $task in
                     SubTaskCell($task.title, isCompleted: $task.isCompleted) {
-                        deleteSubTask(task)
+                        vm.deleteSubTask(task)
                     } onSubmit: {
-                        addEmptySubTask()
+                        vm.addEmptySubTask()
                     }
                     .frame(height: 40)
                 }
@@ -176,30 +199,16 @@ struct NewTaskView: View {
     
     private func datePickerWithTitle(_ title: String, date: Binding<Date>) -> some View {
         contentWithTitle(title) {
-            DatePicker("", selection: date,in: startTime..., displayedComponents: [.date, .hourAndMinute])
+            DatePicker("", selection: date,in: vm.task.startAt..., displayedComponents: [.date, .hourAndMinute])
                 .labelsHidden()
                 .font(.body.weight(.medium))
-        }
-    }
-    
-    private func addEmptySubTask() {
-        withAnimation {
-            subTasks.append(SubTask())
-        }
-    }
-    
-    private func deleteSubTask(_ task: SubTask) {
-        guard let index = subTasks.firstIndex(where: { $0.id == task.id }) else { return }
-        
-        let _ = withAnimation {
-            subTasks.remove(at: index)
         }
     }
 }
 
 struct NewTaskView_Previews: PreviewProvider {
     static var previews: some View {
-        NewTaskView()
+        NewTaskView(vm: NewTaskViewModel(task: nil))
     }
 }
 

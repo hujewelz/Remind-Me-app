@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import TaskKit
 
 struct SearchTaskView: View {
     @State private var text = ""
     @Binding var isSearchActivated: Bool
+    
+    @EnvironmentObject var store: TaskStore
     
     var body: some View {
         VStack(spacing: 0) {
@@ -22,7 +25,7 @@ struct SearchTaskView: View {
             }
             .frame(height: 44)
             
-            TaskList(showsDataPicker: false)
+            TaskList(store: store, showsDataPicker: false)
         }
         .background(Pallet.systemBackground)
     }

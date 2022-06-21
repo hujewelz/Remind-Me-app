@@ -57,16 +57,23 @@ struct TextView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator()
+        Coordinator(text: $text)
     }
     
     final class Coordinator: NSObject, UITextViewDelegate {
+        @Binding var text: String
+        
+        init(text: Binding<String>) {
+            _text = text
+        }
+        
         func textViewDidBeginEditing(_ textView: UITextView) {
             textView.setNeedsDisplay()
         }
         
         func textViewDidChange(_ textView: UITextView) {
             textView.setNeedsDisplay()
+            text = textView.text
         }
     }
 }

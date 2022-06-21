@@ -6,18 +6,15 @@
 //
 
 import Foundation
-import SwiftUI
+import Combine
 
 public final class TaskStore: ObservableObject, Store {
-//    let server: TaskServer
     
-    @Published public var state: [Task] = []
+    @Published public var state: [TKTask] = []
     
-    public var reducer: ([Task]?, TaskAction) async -> [Task]
+    public var reducer: ([TKTask]?, TaskAction) async -> [TKTask]
     
     public init(server: TaskServer) {
-//        self.server = server
-        
         reducer = { prevState, action in
             switch action {
             case .fetch(let date):
@@ -29,15 +26,13 @@ public final class TaskStore: ObservableObject, Store {
                     tmp[index] = task
                     return tmp
                 }
-                return prevState ?? []
+                return ((prevState ?? []) + [task]).sorted(by: {$0.startAt > $1.startAt })
             }
         }
     }
-    
-    
 }
 
 public enum TaskAction {
     case fetch(Date)
-    case update(Task)
+    case update(TKTask)
 }

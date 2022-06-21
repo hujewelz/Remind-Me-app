@@ -47,7 +47,6 @@ struct RemindView: View {
             }
         }
         .lExpanded()
-        .background(Pallet.systemBackground)
         .onTapGesture {
             self.time = time
             dismiss()

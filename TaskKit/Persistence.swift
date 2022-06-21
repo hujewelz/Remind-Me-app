@@ -52,9 +52,10 @@ public struct PersistenceController {
 }
 
 extension PersistenceController {
-    private func fetchMOs<T: NSManagedObject>(_ objectType: T.Type, predicate: NSPredicate? = nil, limit: Int? = nil) -> Result<[T], Error> {
+    private func fetchMOs<T: NSManagedObject>(_ objectType: T.Type, predicate: NSPredicate? = nil, sorts: [NSSortDescriptor]? = nil, limit: Int? = nil) -> Result<[T], Error> {
         let request = objectType.fetchRequest()
         request.predicate = predicate
+        request.sortDescriptors = sorts
         if let limit = limit {
             request.fetchLimit = limit
         }
@@ -88,15 +89,16 @@ extension PersistenceController {
 
 extension PersistenceController: TaskServer {
     
-    public func fetchTasks(of date: Date) async -> [Task] {
-        let result = fetchMOs(TaskMO.self, predicate: date.todayPredicate)
+    public func fetchTasks(of date: Date) async -> [TKTask] {
+        let sort = NSSortDescriptor(key: "startDate", ascending: false)
+        let result = fetchMOs(TaskMO.self, predicate: date.todayPredicate, sorts: [sort])
         if case .success(let mos) = result {
-            return mos.map(Task.init(taskMO:))
+            return mos.map(TKTask.init(taskMO:))
         }
         return []
     }
     
-    public func updateTask(_ task: Task) async  {
+    public func updateTask(_ task: TKTask) async  {
         var mo = fetchMO(TaskMO.self, byId: task.id)
         if mo == nil {
             mo = TaskMO(context: container.viewContext)
@@ -121,18 +123,18 @@ extension PersistenceController: TaskServer {
         save()
     }
     
-    public func deleteTask(_ task: Task)  {
+    public func deleteTask(_ task: TKTask)  {
         guard let mo = fetchMO(TaskMO.self, byId: task.id) else { return }
         container.viewContext.delete(mo)
         save()
     }
     
-    public func updateSubTask(_ subTask: SubTask, of task: Task)  {
+    public func updateSubTask(_ subTask: SubTask, of task: TKTask)  {
         updateSubTaskWithoutSave(subTask, of: task)
         save()
     }
     
-    public func deleteSubTask(_ subTask: SubTask, of task: Task)  {
+    public func deleteSubTask(_ subTask: SubTask, of task: TKTask)  {
         guard let mo = fetchMO(TaskMO.self, byId: task.id),
               let subTaskMO = fetchMO(SubTaskMO.self, byId: subTask.id) else { return }
         mo.removeFromSubTasks(subTaskMO)
@@ -158,7 +160,7 @@ extension PersistenceController: TaskServer {
         save()
     }
     
-    private func updateSubTaskWithoutSave(_ subTask: SubTask, of task: Task) {
+    private func updateSubTaskWithoutSave(_ subTask: SubTask, of task: TKTask) {
         guard let mo = fetchMO(TaskMO.self, byId: task.id) else { return }
         
         var subTaskMO = fetchMO(SubTaskMO.self, byId: subTask.id)
@@ -168,7 +170,10 @@ extension PersistenceController: TaskServer {
         }
         subTaskMO?.title = subTask.title
         subTaskMO?.isCompleted = subTask.isCompleted
-        if let index = mo.subTasks?.index(of: subTaskMO!) {
+        
+        // FIXME: If can't find the 'object', it returns an big int value.
+        if let index = mo.subTasks?.index(of: subTaskMO!), index < (mo.subTasks?.count ?? 0) {
+            print("index: ", index, "count: ", mo.subTasks?.count ?? 0)
             mo.replaceSubTasks(at: index, with: subTaskMO!)
         } else {
             mo.addToSubTasks(subTaskMO!)

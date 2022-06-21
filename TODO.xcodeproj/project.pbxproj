@@ -19,6 +19,15 @@
 		50C54D2D28601F60004265EC /* TagMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D2B28601F60004265EC /* TagMO+CoreDataProperties.swift */; };
 		50C54D2F2860A3BC004265EC /* RemindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D2E2860A3BC004265EC /* RemindView.swift */; };
 		50C54D302860A3BC004265EC /* RemindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D2E2860A3BC004265EC /* RemindView.swift */; };
+		50C54D322860AD71004265EC /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D312860AD71004265EC /* MapView.swift */; };
+		50C54D332860AD71004265EC /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D312860AD71004265EC /* MapView.swift */; };
+		50C54D352860AFF0004265EC /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D342860AFF0004265EC /* LocationView.swift */; };
+		50C54D362860AFF0004265EC /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D342860AFF0004265EC /* LocationView.swift */; };
+		50C54D392860B38D004265EC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C54D382860B38D004265EC /* MapKit.framework */; };
+		50C54D3C286163B9004265EC /* Geocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D3B286163B9004265EC /* Geocode.swift */; };
+		50C54D3D286163B9004265EC /* Geocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D3B286163B9004265EC /* Geocode.swift */; };
+		50C54D3F2861B02F004265EC /* NewTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D3E2861B02F004265EC /* NewTaskViewModel.swift */; };
+		50C54D402861B02F004265EC /* NewTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D3E2861B02F004265EC /* NewTaskViewModel.swift */; };
 		C20300A52785A0A300F04B27 /* Todo_ext.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C20300A02785A0A100F04B27 /* Todo_ext.intentdefinition */; };
 		C2258574279A5C1800085433 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2258573279A5C1800085433 /* TaskList.swift */; };
 		C2258575279A5C1800085433 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2258573279A5C1800085433 /* TaskList.swift */; };
@@ -157,6 +166,12 @@
 		50C54D2A28601F60004265EC /* TagMO+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TagMO+CoreDataClass.swift"; sourceTree = "<group>"; };
 		50C54D2B28601F60004265EC /* TagMO+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TagMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		50C54D2E2860A3BC004265EC /* RemindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindView.swift; sourceTree = "<group>"; };
+		50C54D312860AD71004265EC /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		50C54D342860AFF0004265EC /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
+		50C54D372860B38D004265EC /* TODO--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "TODO--iOS--Info.plist"; sourceTree = "<group>"; };
+		50C54D382860B38D004265EC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.5.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
+		50C54D3B286163B9004265EC /* Geocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geocode.swift; sourceTree = "<group>"; };
+		50C54D3E2861B02F004265EC /* NewTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskViewModel.swift; sourceTree = "<group>"; };
 		C20300992785A0A100F04B27 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C203009B2785A0A100F04B27 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C203009E2785A0A100F04B27 /* Todo_ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo_ext.swift; sourceTree = "<group>"; };
@@ -232,6 +247,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50C54D392860B38D004265EC /* MapKit.framework in Frameworks */,
 				C2BE545427A0DCC0005A1AE8 /* TaskKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,9 +276,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		50C54D3A2861639D004265EC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				50C54D3B286163B9004265EC /* Geocode.swift */,
+				50C54D3E2861B02F004265EC /* NewTaskViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		C20300982785A0A100F04B27 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50C54D382860B38D004265EC /* MapKit.framework */,
 				C20300992785A0A100F04B27 /* WidgetKit.framework */,
 				C203009B2785A0A100F04B27 /* SwiftUI.framework */,
 			);
@@ -292,6 +318,8 @@
 				C25C3536279AB23400409300 /* TagView.swift */,
 				C2BE548627A128E1005A1AE8 /* TextView.swift */,
 				C2BE548927A154E0005A1AE8 /* ColorPallet.swift */,
+				50C54D312860AD71004265EC /* MapView.swift */,
+				50C54D342860AFF0004265EC /* LocationView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -364,6 +392,7 @@
 		C2D246E5278571A900B7264F = {
 			isa = PBXGroup;
 			children = (
+				50C54D372860B38D004265EC /* TODO--iOS--Info.plist */,
 				C2D246EA278571A900B7264F /* Shared */,
 				C2D246FC278571AB00B7264F /* macOS */,
 				C2D24705278571AB00B7264F /* Tests iOS */,
@@ -379,6 +408,7 @@
 		C2D246EA278571A900B7264F /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				50C54D3A2861639D004265EC /* ViewModel */,
 				C2BDE1BE2798F97800320618 /* Extensions */,
 				C232E3CD2790334F00810824 /* Components */,
 				C2D2472E2785776600B7264F /* Views */,
@@ -722,6 +752,7 @@
 				C225857A279A8CDF00085433 /* NewTaskView.swift in Sources */,
 				C2BDE1B02796CA6D00320618 /* DatePickView.swift in Sources */,
 				C2BE548A27A154E0005A1AE8 /* ColorPallet.swift in Sources */,
+				50C54D322860AD71004265EC /* MapView.swift in Sources */,
 				C2258577279A637300085433 /* SearchBar.swift in Sources */,
 				C2258574279A5C1800085433 /* TaskList.swift in Sources */,
 				C2BDE1C62799420200320618 /* TaskCell.swift in Sources */,
@@ -732,13 +763,16 @@
 				C2BDE1C02798F99100320618 /* View+Extensions.swift in Sources */,
 				509297A9279CF88D00C2C7C9 /* Calendar+Extensions.swift in Sources */,
 				C2BDE1B927980D4100320618 /* SubTaskCell.swift in Sources */,
+				50C54D3C286163B9004265EC /* Geocode.swift in Sources */,
 				50C54D2F2860A3BC004265EC /* RemindView.swift in Sources */,
+				50C54D3F2861B02F004265EC /* NewTaskViewModel.swift in Sources */,
 				C2BDE1CC279A58EF00320618 /* SearchTaskView.swift in Sources */,
 				C2AA6EE2278E68B700933147 /* Pallet.swift in Sources */,
 				C2AA6EF5278ECA2300933147 /* Extensions.swift in Sources */,
 				C25C353D279AB3E500409300 /* ChooseTagView.swift in Sources */,
 				C2D24718278571AC00B7264F /* TODOApp.swift in Sources */,
 				C2BE548727A128E1005A1AE8 /* TextView.swift in Sources */,
+				50C54D352860AFF0004265EC /* LocationView.swift in Sources */,
 				C2AA6EF2278EC5C000933147 /* Const.swift in Sources */,
 				C2BDE1BC2798F67700320618 /* Home.swift in Sources */,
 			);
@@ -760,8 +794,12 @@
 				C2BDE1CA279A560200320618 /* SharedDataFormatter.swift in Sources */,
 				C2BDE1BD2798F67700320618 /* Home.swift in Sources */,
 				C2AA6EF6278ECA2300933147 /* Extensions.swift in Sources */,
+				50C54D332860AD71004265EC /* MapView.swift in Sources */,
+				50C54D362860AFF0004265EC /* LocationView.swift in Sources */,
+				50C54D402861B02F004265EC /* NewTaskViewModel.swift in Sources */,
 				C25C3535279A9C6E00409300 /* ModalView.swift in Sources */,
 				50C54D302860A3BC004265EC /* RemindView.swift in Sources */,
+				50C54D3D286163B9004265EC /* Geocode.swift in Sources */,
 				C2258578279A637300085433 /* SearchBar.swift in Sources */,
 				C2D24719278571AC00B7264F /* TODOApp.swift in Sources */,
 				C232E3D82790372400810824 /* Localize.swift in Sources */,
@@ -1077,6 +1115,7 @@
 				DEVELOPMENT_TEAM = UA8U3Z7XU4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TODO--iOS--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1109,6 +1148,7 @@
 				DEVELOPMENT_TEAM = UA8U3Z7XU4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TODO--iOS--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

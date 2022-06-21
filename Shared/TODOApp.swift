@@ -11,12 +11,12 @@ import TaskKit
 @main
 struct TODOApp: App {
     @Environment(\.scenePhase) var scenePhase
-    
-    let persistenceController = PersistenceController()
+
+    let store  = TaskStore(server: PersistenceController())
     
     var body: some Scene {
         WindowGroup {
-            Home(store: TaskStore(server: persistenceController))
+            Home(store: store)
         }
         
     }

@@ -15,7 +15,7 @@ struct TaskCell: View {
         colors[Int.random(in: 0...6)]
     }
     
-    let task: Task
+    let task: TKTask
     
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
@@ -30,8 +30,10 @@ struct TaskCell: View {
                 }
                 
                 HStack {
-                    Label("12:00 to 14:30 • 1.5 hours", systemImage: "clock.fill")
+                    Label("\(task.startTime) to \(task.endTime) • \(task.duration)", systemImage: "clock.fill")
                         .font(.footnote)
+    
+                    
                     Image(systemName: "bell.fill")
                         .font(.system(size: 8))
                 }
@@ -83,6 +85,16 @@ struct TaskCell: View {
     func selectDiamonds() {}
     
 }
+//
+//extension TKTask {
+//    var startTime: String {
+//        startAt.formatted(date: .omitted, time: .shortened)
+//    }
+//
+//    var endTime: String {
+//        endAt.formatted(date: .omitted, time: .shortened)
+//    }
+//}
 
 //struct TaskCell_Previews: PreviewProvider {
 //    static var previews: some View {

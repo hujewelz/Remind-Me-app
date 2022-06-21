@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct ModalView<Content>: View where Content: View {
+    let confirmEnabled: Bool
     let content: Content
+    let confirm: () -> Void
     
     @Environment(\.dismiss) private var dismiss
     
-    init(@ViewBuilder content: () -> Content) {
+    init(confirmEnabled: Bool, confirm: @escaping () -> Void, @ViewBuilder content: () -> Content) {
+        self.confirmEnabled = confirmEnabled
+        self.confirm = confirm
         self.content = content()
     }
     
@@ -23,12 +27,13 @@ struct ModalView<Content>: View where Content: View {
                 .toolbar {
                     ToolbarItem {
                         Button {
+                            confirm()
                             dismiss()
                         } label: {
                             Text("Done")
                                 .bold()
                         }
-//                        .disabled(text.isAbsoluteEmpty)
+                        .disabled(confirmEnabled)
                     }
                     ToolbarItem(placement: .cancellationAction) {
                         Button {
@@ -46,7 +51,9 @@ struct ModalView<Content>: View where Content: View {
 
 struct ModalView_Previews: PreviewProvider {
     static var previews: some View {
-        ModalView {
+        ModalView(confirmEnabled: true) {
+            
+        } content: {
             Text("Content")
                 .tExpanded()
         }
