@@ -13,15 +13,13 @@ struct NewTaskView: View {
 
     @FocusState private var isInputActive: Bool
     
-    @State private var remindTime: Times?
-    
     @EnvironmentObject var store: TaskStore
-    
     @ObservedObject var vm: NewTaskViewModel
     
     var body: some View {
         ModalView(confirmEnabled: vm.task.title.isAbsoluteEmpty) {
             Task {
+                print("Create a new task: ", vm.task)
                 await store.dispatch(.update(vm.task))
             }
             
@@ -52,32 +50,10 @@ struct NewTaskView: View {
                     VStack(spacing: 0) {
                         Divider().background(Pallet.tertiary.opacity(0.2))
                         
-//                        row(systemIcon: "clock", title: "Start Time") {
-//                            DatePicker(
-//                                "",
-//                                selection: $vm.task.startAt,
-//                                in: vm.task.startAt...,
-//                                displayedComponents: [.date, .hourAndMinute]
-//                            )
-//                            .labelsHidden()
-//                            .font(.body.weight(.medium))
-//                        }
-//
-//                        row(systemIcon: "clock", title: "End Time") {
-//                            DatePicker(
-//                                "",
-//                                selection: $vm.task.endAt,
-//                                in: vm.task.endAt...,
-//                                displayedComponents: [.date, .hourAndMinute]
-//                            )
-//                            .labelsHidden()
-//                            .font(.body.weight(.medium))
-//                        }
-                        
                         tapableRow(systemIcon: "bell", title: "Remind Me") {
-                            RemindView(time: $remindTime)
+                            RemindView(time: $vm.task.remind)
                         } trailing: {
-                            Text(remindTime != nil ? remindTime!.title : "Never")
+                            Text(vm.task.remind != nil ? vm.task.remind!.title : "Never")
                                 .foregroundColor(Color.secondary)
                         }
                         

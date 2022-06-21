@@ -110,7 +110,7 @@ extension PersistenceController: TaskServer {
         mo?.startDate = task.startAt
         mo?.endDate = task.endAt
         mo?.isCompleted = task.isCompleted
-        mo?.isRemind = task.isRemind
+        mo?.remind = Int16(task.remind == nil ? -1 : task.remind!.minutes)
         
         
         task.subTasks.forEach { subTask in

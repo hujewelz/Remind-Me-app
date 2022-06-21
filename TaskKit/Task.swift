@@ -12,12 +12,52 @@ public struct TKTask: Codable, Identifiable {
     public var title: String
     public var createAt: Date
     public var isCompleted: Bool
-    public var isRemind: Bool
+    public var remind: Remind?
     public var startAt: Date
     public var endAt: Date
     public var content: String
     public var subTasks: [SubTask] = []
     public var tag: Tag?
+    
+    public var isRemind: Bool { remind != nil}
+    
+    public enum Remind: Codable {
+        case atTime
+        case custom(Int)
+        
+        public init?(minutes: Int) {
+            guard minutes >= 0 else { return nil }
+            if minutes == 0 {
+                self = .atTime
+            } else {
+                self = .custom(minutes)
+            }
+        }
+        
+        public var title: String {
+            switch self {
+            case .atTime:
+                return "At time of task"
+            case .custom(let minutes):
+                if minutes < 60 {
+                    return "\(minutes) minutes before"
+                } else {
+                    let hour = minutes / 60
+                    return "\(hour) \(hour > 1 ? "hours" : "hour") before"
+                }
+                
+            }
+        }
+        
+        public var minutes: Int {
+            switch self {
+            case .atTime:
+                return 0
+            case .custom(let int):
+                return int
+            }
+        }
+    }
 }
 
 public struct SubTask: Codable, Identifiable {
@@ -38,7 +78,7 @@ extension TKTask {
         self.title = title
         createAt = Date()
         isCompleted = false
-        isRemind = false
+        remind = nil
         startAt = Date()
         endAt = Date().advanced(by: 3600)
         content = ""
@@ -99,7 +139,7 @@ extension TKTask {
                   title: taskMO.title!,
                   createAt: taskMO.createdAt!,
                   isCompleted: taskMO.isCompleted,
-                  isRemind: taskMO.isRemind,
+                  remind: Remind(minutes: Int(taskMO.remind)),
                   startAt: taskMO.startDate ?? Date(),
                   endAt: taskMO.endDate ?? Date().advanced(by: 3600),
                   content: taskMO.content ?? "",

@@ -6,14 +6,15 @@
 //
 
 import SwiftUI
+import TaskKit
 
 struct RemindView: View {
     
-    @Binding var time: Times?
+    @Binding var time: TKTask.Remind?
     
     @Environment(\.dismiss) private var dismiss;
     
-    let times: [Times] = [
+    let times: [TKTask.Remind] = [
         .atTime,
         .custom(5),
         .custom(10),
@@ -36,7 +37,7 @@ struct RemindView: View {
         }
     }
     
-    private func cell(_ time: Times?) -> some View {
+    private func cell(_ time: TKTask.Remind?) -> some View {
         HStack {
             Text(time == nil ? "None" : time!.title).padding(.vertical, 6)
             Spacer()
@@ -61,44 +62,15 @@ struct RemindView_Previews: PreviewProvider {
     }
 }
 
-enum Times {
-    case atTime
-    case custom(Int)
-    
-    init(minutes: Int) {
-        assert(minutes >= 0)
-        if minutes == 0 {
-            self = .atTime
-        } else {
-            self = .custom(minutes)
-        }
-    }
-    
-    var title: String {
-        switch self {
-        case .atTime:
-            return "At time of task"
-        case .custom(let minutes):
-            if minutes < 60 {
-                return "\(minutes) minutes before"
-            } else {
-                let hour = minutes / 60
-                return "\(hour) \(hour > 1 ? "hours" : "hour") before"
-            }
-            
-        }
-    }
-    
-    var minutes: Int {
-        switch self {
-        case .atTime:
-            return 0
-        case .custom(let int):
-            return int
-        }
-    }
-}
 
-extension Times: Hashable, Identifiable {
-    var id: Int { minutes }
+extension TKTask.Remind: Hashable, Identifiable {
+    public var id: Int { minutes }
+    
+    public static func == (lhs: TKTask.Remind, rhs: TKTask.Remind) -> Bool {
+        lhs.minutes == rhs.minutes
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(minutes)
+    }
 }

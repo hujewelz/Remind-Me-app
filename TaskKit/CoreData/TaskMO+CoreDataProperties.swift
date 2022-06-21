@@ -20,7 +20,7 @@ extension TaskMO {
     @NSManaged public var endDate: Date?
     @NSManaged public var id: UUID?
     @NSManaged public var isCompleted: Bool
-    @NSManaged public var isRemind: Bool
+    @NSManaged public var remind: Int16
     @NSManaged public var startDate: Date?
     @NSManaged public var createdAt: Date?
     @NSManaged public var title: String?

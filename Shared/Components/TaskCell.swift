@@ -24,21 +24,24 @@ struct TaskCell: View {
                     .font(.title3)
                     .foregroundColor(Color.primary)
                 
-                if let content = task.content {
-                    Text(content)
+                if !task.content.isAbsoluteEmpty {
+                    Text(task.content)
                         .lineLimit(2)
                 }
                 
                 HStack {
-                    Label("\(task.startTime) to \(task.endTime) • \(task.duration)", systemImage: "clock.fill")
-                        .font(.footnote)
-    
-                    
-                    Image(systemName: "bell.fill")
-                        .font(.system(size: 8))
+                    HStack(spacing: 4) {
+                        Image(systemName: "clock.fill")
+                            .font(.system(size: 9))
+                        Text("\(task.startTime) to \(task.endTime) • \(task.duration)")
+                            .font(.footnote)
+                    }
+                    if task.isRemind {
+                        Image(systemName: "bell.fill").font(.system(size: 8))
+                    }
                 }
                 if !task.subTasks.isEmpty {
-                    Text("Tasks • \(task.countOfFinishedSubTasks) of \(task.subTasks.count)")
+                    Text("Tasks • \(task.countOfFinishedSubTasks)/\(task.subTasks.count)")
                         .font(.footnote)
                 }
                 

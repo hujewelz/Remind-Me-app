@@ -16,7 +16,7 @@
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isCompleted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="isRemind" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="remind" attributeType="Integer 16" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="subTasks" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="SubTaskMO"/>
@@ -25,6 +25,6 @@
     <elements>
         <element name="SubTaskMO" positionX="189.4219970703125" positionY="8.562286376953125" width="128" height="88"/>
         <element name="TagMO" positionX="72" positionY="72" width="128" height="74"/>
-        <element name="TaskMO" positionX="-63" positionY="-18" width="128" height="193"/>
+        <element name="TaskMO" positionX="-63" positionY="-18" width="128" height="179"/>
     </elements>
 </model>

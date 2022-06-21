@@ -21,12 +21,13 @@ public final class TaskStore: ObservableObject, Store {
                 return await server.fetchTasks(of: date)
             case .update(let task):
                 await server.updateTask(task)
-                if let index = prevState?.firstIndex(where: { $0.id == task.id }) {
-                    var tmp = prevState!
-                    tmp[index] = task
-                    return tmp
+                var tasks = prevState ?? []
+                if let index = prevState?.firstIndex(where: { $0.id == task.id }) { // update a task
+                    tasks[index] = task
+                } else { // create a new task
+                    tasks = [task] + tasks
                 }
-                return ((prevState ?? []) + [task]).sorted(by: {$0.startAt > $1.startAt })
+                return tasks.sorted(by: {$0.startAt > $1.startAt })
             }
         }
     }
