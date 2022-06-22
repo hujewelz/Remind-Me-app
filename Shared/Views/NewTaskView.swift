@@ -34,6 +34,7 @@ struct NewTaskView: View {
             VStack(alignment: .leading, spacing: 20) {
                 groupedContent(spacing: 8) {
                     TextField("Title", text: $vm.task.title)
+                        .clearButton($vm.task.title)
                         .focused($isInputActive)
                         .font(.title2)
                     
@@ -81,7 +82,6 @@ struct NewTaskView: View {
             .font(.system(size: 15))
         }
         .navigationTitle("New Task")
-        .padding(.bottom, 30)
         .onTapGesture {
             resignFirstResonder()
         }
@@ -195,6 +195,7 @@ struct NewTaskView: View {
             DatePicker("", selection: date,in: vm.task.startAt..., displayedComponents: [.date, .hourAndMinute])
                 .labelsHidden()
                 .font(.body.weight(.medium))
+                .foregroundColor(Color.primary.opacity(0.8))
         }
     }
 }
