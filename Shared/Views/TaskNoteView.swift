@@ -10,7 +10,13 @@ import SwiftUI
 struct TaskNoteView: View {
     @Binding var text: String
     @Environment(\.dismiss) var dismiss
-    @FocusState private var isInputActive: Bool
+    
+    @FocusState private var focusedField: FocusField?
+    
+    
+    enum FocusField: Hashable {
+        case field
+    }
     
     var body: some View {
         ModalView(confirmEnabled: true) {
@@ -18,12 +24,13 @@ struct TaskNoteView: View {
         } content: {
             TextEditor(text: $text)
                 .padding(.horizontal)
-                .focused($isInputActive)
+                .focused($focusedField, equals: .field)
+                .task {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        focusedField = .field
+                    }
+                }
         }
-        .onAppear {
-            isInputActive = true
-        }
-
     }
 }
 
