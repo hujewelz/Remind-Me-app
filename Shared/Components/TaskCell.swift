@@ -16,6 +16,7 @@ struct TaskCell: View {
     }
     
     let task: TKTask
+
     
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
@@ -78,8 +79,11 @@ struct TaskCell: View {
         }
         .foregroundColor(Pallet.secondary)
         .padding()
+//        .background(Pallet.secondary)
         .background(color.opacity(0.1))
         .cornerRadius(12)
+//        .mySwipeAction()
+        
     }
     
     func selectHearts() {}
@@ -88,6 +92,51 @@ struct TaskCell: View {
     func selectDiamonds() {}
     
 }
+
+struct SwipeViewModifier: ViewModifier {
+    @State private var offsetX = 0.0
+    @State private var prevOffsetX = 0.0
+    
+    let width = 200.0
+    
+    func body(content: Content) -> some View {
+        ZStack(alignment: .leading) {
+            HStack(alignment: .center) {
+                Spacer()
+                Color.red.frame(width: width, height: 40)
+            }
+            content
+                .offset(x: offsetX)
+        }
+        .gesture(DragGesture(minimumDistance: 10, coordinateSpace: .local)
+            .onChanged { value in
+                if value.translation.width < 0 {
+                    offsetX = max(-width, value.translation.width)
+                } else {
+                    var x = offsetX
+                    x += value.translation.width
+                    offsetX = min(0, x)
+                }
+                
+            } .onEnded { value in
+                print("tranlate end: ", value.translation.width, ", time: ",value.time)
+                var x =  min(0, value.translation.width)
+                x = value.translation.width <= -(width * 0.4) ? -width : 0
+                withAnimation {
+                    offsetX = x
+                }
+                
+            }
+        )
+    }
+}
+
+extension View {
+    func mySwipeAction() -> some View {
+        modifier(SwipeViewModifier())
+    }
+}
+
 //
 //extension TKTask {
 //    var startTime: String {
