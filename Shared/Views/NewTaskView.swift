@@ -17,7 +17,7 @@ struct NewTaskView: View {
     @ObservedObject var vm: NewTaskViewModel
     
     var body: some View {
-        ModalView(confirmEnabled: vm.task.title.isAbsoluteEmpty) {
+        ModalView(confirmEnabled: !vm.task.title.isAbsoluteEmpty) {
             Task {
                 print("Create a new task: ", vm.task)
                 await store.dispatch(.update(vm.task))
@@ -28,15 +28,14 @@ struct NewTaskView: View {
         }
     }
     
+    @State private var presentAddNoteView = false
     private var content: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 20) {
                 groupedContent(spacing: 8) {
-                    TextEditor(text: $vm.task.title)
-                        .lineLimit(2)
+                    TextField("Title", text: $vm.task.title)
                         .focused($isInputActive)
-                        .font(.system(size: 20, weight: .semibold))
-                        .frame(maxHeight: 60)
+                        .font(.title2)
                     
                     subTasksView()
                 }
@@ -46,41 +45,37 @@ struct NewTaskView: View {
                     datePickerWithTitle("End Time", date: $vm.task.endAt)
                 }
                 
-                groupedContent {
-                    VStack(spacing: 0) {
-                        Divider().background(Pallet.tertiary.opacity(0.2))
-                        
-                        tapableRow(systemIcon: "bell", title: "Remind Me") {
-                            RemindView(time: $vm.task.remind)
-                        } trailing: {
-                            Text(vm.task.remind != nil ? vm.task.remind!.title : "Never")
-                                .foregroundColor(Color.secondary)
-                        }
-                        
-                        tapableRow(systemIcon: "repeat", title: "Repeat") {
-
-                        } trailing: {
-                            Text("None").foregroundColor(Color.secondary)
-                        }
-                        
-                        tapableRow(systemIcon: "mappin.and.ellipse", title: "Location") {
-                            LocationView()
-                        } trailing: {
-                            Text("").foregroundColor(Color.secondary)
-                        }
-
-                        tapableRow(systemIcon: "tag", title: "Tag") {
-                            ChooseTagView()
-                        } trailing:  {
-                            TagView()
-                        }
-                        
+                groupedContent(spacing: 0) {
+                    Divider().background(Pallet.tertiary.opacity(0.2))
+                    
+                    tapableRow(systemIcon: "bell", title: "Remind Me") {
+                        RemindView(time: $vm.task.remind)
+                    } trailing: {
+                        Text(vm.task.remind?.title ?? "Never")
+                            .foregroundColor(Color.secondary)
                     }
                     
-                    TextView(text: $vm.task.content, prompt: "Add note")
-                        .font(.body)
-                        .frame(height: 88)
+                    tapableRow(systemIcon: "repeat", title: "Repeat") {
+                        RepeatView(repeat: $vm.task.repeat)
+                    } trailing: {
+                        Text(vm.task.repeat?.title ?? "None")
+                            .foregroundColor(Color.secondary)
+                    }
+                    
+                    tapableRow(systemIcon: "tag", title: "Tag") {
+                        ChooseTagView()
+                    } trailing:  {
+                        TagView()
+                    }
+                    
+                    tapableRow(systemIcon: "mappin.and.ellipse", title: "Location") {
+                        LocationView()
+                    } trailing: {
+                        Text("").foregroundColor(Color.secondary)
+                    }
                 }
+                
+                noteView()
             }
             .padding()
             .font(.system(size: 15))
@@ -89,6 +84,28 @@ struct NewTaskView: View {
         .padding(.bottom, 30)
         .onTapGesture {
             resignFirstResonder()
+        }
+    }
+    
+    private func noteView() -> some View {
+        VStack {
+            if vm.task.content.isAbsoluteEmpty {
+                Text("Add note").foregroundColor(Color.secondary)
+            } else {
+                Text(vm.task.content)
+            }
+            Spacer()
+        }
+        .font(.system(size: 15))
+        .lExpanded()
+        .frame(minHeight: 88)
+        .background(Pallet.systemBackground)
+        .foregroundColor(Color.primary.opacity(0.8))
+        .onTapGesture {
+            presentAddNoteView = true
+        }
+        .sheet(isPresented: $presentAddNoteView) {
+            TaskNoteView(text: $vm.task.content)
         }
     }
     
@@ -122,7 +139,7 @@ struct NewTaskView: View {
             }
             .frame(height: 50)
             Divider()
-                .background(Pallet.tertiary.opacity(0.2))
+                .background(Pallet.tertiary.opacity(0.05))
         }
         .foregroundColor(Color.primary.opacity(0.8))
         .background(Pallet.systemBackground)

@@ -12,8 +12,6 @@ struct RemindView: View {
     
     @Binding var time: TKTask.Remind?
     
-    @Environment(\.dismiss) private var dismiss;
-    
     let times: [TKTask.Remind] = [
         .atTime,
         .custom(5),
@@ -25,46 +23,27 @@ struct RemindView: View {
     ]
     
     var body: some View {
-        List {
-            Section {
-                cell(nil)
-            }
-           
-            ForEach(times, id: \.self) { time in
-                cell(time)
-            }
-            
-        }
+       SimpleList(data: times, selected: $time)
     }
+}
+
+struct RepeatView: View {
+   
+    @Binding var `repeat`: TKTask.Repeat?
     
-    private func cell(_ time: TKTask.Remind?) -> some View {
-        HStack {
-            Text(time == nil ? "None" : time!.title).padding(.vertical, 6)
-            Spacer()
-            if self.time == time {
-                Image(systemName: "checkmark")
-                    .font(.footnote.bold())
-                    .foregroundColor(Pallet.primary)
-            }
-        }
-        .lExpanded()
-        .onTapGesture {
-            self.time = time
-            dismiss()
-        }
-            
+    var body: some View {
+        SimpleList(data: TKTask.Repeat.allCases, selected: $repeat)
     }
 }
 
 struct RemindView_Previews: PreviewProvider {
     static var previews: some View {
         RemindView(time: .constant(nil))
+        RepeatView(repeat: .constant(.week))
     }
 }
 
-
-extension TKTask.Remind: Hashable, Identifiable {
-    public var id: Int { minutes }
+extension TKTask.Remind: Hashable {
     
     public static func == (lhs: TKTask.Remind, rhs: TKTask.Remind) -> Bool {
         lhs.minutes == rhs.minutes
@@ -72,5 +51,22 @@ extension TKTask.Remind: Hashable, Identifiable {
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(minutes)
+    }
+}
+
+extension TKTask.Remind: SimpleListDisplayTitle {}
+
+extension TKTask.Repeat: SimpleListDisplayTitle {
+    var title: String {
+        switch self {
+        case .day:
+            return "Every Day"
+        case .week:
+            return "Every Week"
+        case .month:
+            return "Every Month"
+        case .year:
+            return "Every Year"
+        }
     }
 }

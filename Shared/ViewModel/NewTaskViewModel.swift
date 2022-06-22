@@ -16,7 +16,7 @@ final class NewTaskViewModel: ObservableObject {
     init(task: TKTask?) {
         var task = task
         if task == nil {
-            task = TKTask(title: "Untitled")
+            task = TKTask(title: "")
             task?.startAt = Date()
             task?.endAt = Date().advanced(by: 3600)
         }

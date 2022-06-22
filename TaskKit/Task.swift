@@ -13,6 +13,7 @@ public struct TKTask: Codable, Identifiable {
     public var createAt: Date
     public var isCompleted: Bool
     public var remind: Remind?
+    public var `repeat`: Repeat?
     public var startAt: Date
     public var endAt: Date
     public var content: String
@@ -58,6 +59,13 @@ public struct TKTask: Codable, Identifiable {
             }
         }
     }
+    
+    public enum Repeat: Codable, CaseIterable {
+        case day
+        case week
+        case month
+        case year
+    }
 }
 
 public struct SubTask: Codable, Identifiable {
@@ -79,6 +87,7 @@ extension TKTask {
         createAt = Date()
         isCompleted = false
         remind = nil
+        `repeat` = nil
         startAt = Date()
         endAt = Date().advanced(by: 3600)
         content = ""

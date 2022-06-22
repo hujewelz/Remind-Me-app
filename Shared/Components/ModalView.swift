@@ -33,7 +33,7 @@ struct ModalView<Content>: View where Content: View {
                             Text("Done")
                                 .bold()
                         }
-                        .disabled(confirmEnabled)
+                        .disabled(!confirmEnabled)
                     }
                     ToolbarItem(placement: .cancellationAction) {
                         Button {

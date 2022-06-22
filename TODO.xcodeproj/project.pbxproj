@@ -28,6 +28,8 @@
 		50C54D3D286163B9004265EC /* Geocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D3B286163B9004265EC /* Geocode.swift */; };
 		50C54D3F2861B02F004265EC /* NewTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D3E2861B02F004265EC /* NewTaskViewModel.swift */; };
 		50C54D402861B02F004265EC /* NewTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D3E2861B02F004265EC /* NewTaskViewModel.swift */; };
+		50C54D422862A782004265EC /* TaskNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D412862A782004265EC /* TaskNoteView.swift */; };
+		50C54D4428631D7B004265EC /* SimpleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C54D4328631D7B004265EC /* SimpleList.swift */; };
 		C20300A52785A0A300F04B27 /* Todo_ext.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = C20300A02785A0A100F04B27 /* Todo_ext.intentdefinition */; };
 		C2258574279A5C1800085433 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2258573279A5C1800085433 /* TaskList.swift */; };
 		C2258575279A5C1800085433 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2258573279A5C1800085433 /* TaskList.swift */; };
@@ -172,6 +174,8 @@
 		50C54D382860B38D004265EC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.5.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		50C54D3B286163B9004265EC /* Geocode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geocode.swift; sourceTree = "<group>"; };
 		50C54D3E2861B02F004265EC /* NewTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskViewModel.swift; sourceTree = "<group>"; };
+		50C54D412862A782004265EC /* TaskNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNoteView.swift; sourceTree = "<group>"; };
+		50C54D4328631D7B004265EC /* SimpleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleList.swift; sourceTree = "<group>"; };
 		C20300992785A0A100F04B27 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		C203009B2785A0A100F04B27 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		C203009E2785A0A100F04B27 /* Todo_ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo_ext.swift; sourceTree = "<group>"; };
@@ -320,6 +324,7 @@
 				C2BE548927A154E0005A1AE8 /* ColorPallet.swift */,
 				50C54D312860AD71004265EC /* MapView.swift */,
 				50C54D342860AFF0004265EC /* LocationView.swift */,
+				50C54D4328631D7B004265EC /* SimpleList.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -471,6 +476,7 @@
 				C2258579279A8CDF00085433 /* NewTaskView.swift */,
 				C25C353C279AB3E500409300 /* ChooseTagView.swift */,
 				50C54D2E2860A3BC004265EC /* RemindView.swift */,
+				50C54D412862A782004265EC /* TaskNoteView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -762,11 +768,13 @@
 				C25C3537279AB23400409300 /* TagView.swift in Sources */,
 				C2BDE1C02798F99100320618 /* View+Extensions.swift in Sources */,
 				509297A9279CF88D00C2C7C9 /* Calendar+Extensions.swift in Sources */,
+				50C54D4428631D7B004265EC /* SimpleList.swift in Sources */,
 				C2BDE1B927980D4100320618 /* SubTaskCell.swift in Sources */,
 				50C54D3C286163B9004265EC /* Geocode.swift in Sources */,
 				50C54D2F2860A3BC004265EC /* RemindView.swift in Sources */,
 				50C54D3F2861B02F004265EC /* NewTaskViewModel.swift in Sources */,
 				C2BDE1CC279A58EF00320618 /* SearchTaskView.swift in Sources */,
+				50C54D422862A782004265EC /* TaskNoteView.swift in Sources */,
 				C2AA6EE2278E68B700933147 /* Pallet.swift in Sources */,
 				C2AA6EF5278ECA2300933147 /* Extensions.swift in Sources */,
 				C25C353D279AB3E500409300 /* ChooseTagView.swift in Sources */,
